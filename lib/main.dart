@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:medic_ally/src/features/authentication/screens/loginScreen/login_screen.dart';
 import 'package:medic_ally/src/features/authentication/screens/welcomeScreen/welcome_screen.dart';
 import 'package:medic_ally/src/utils/theme/theme.dart';
 
@@ -9,11 +11,25 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: MedicAppTheme.lightTheme,
       darkTheme: MedicAppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: const WelcomeScreen(),
+      routerConfig: _router,
+      title: "MedicAlly",
     );
   }
 }
+
+final _router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const WelcomeScreen(),
+    ),
+    GoRoute(
+      path: "/login",
+      builder: (context, state) => const LoginScreen(),
+    )
+  ],
+);
