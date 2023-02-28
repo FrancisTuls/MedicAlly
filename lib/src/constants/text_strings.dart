@@ -12,8 +12,8 @@ const String mTerms =
     "By proceeding, you agree to our Terms and that you have read our Privacy Policy";
 
 // -- LogIn Scren
-const String mLoginTitle = "Welcome to MedicAlly";
-const String mLoginSubtitle = "Become our medic ally.";
+const String mSignupTitle = "Welcome to MedicAlly";
+const String mSignupSubtitle = "Become our medic ally.";
 const String mEmail = "Email";
 const String mEnterEmail = "Enter your email address";
 const String mPassword = "Password";
@@ -24,3 +24,9 @@ const String mSignUp = "Sign up";
 const String mForgotPassword = "Forgot your password?";
 const String mReset = "Reset";
 const String mSigninGoogle = "Sign in with Google";
+const String mFullName = "Full Name";
+const String mEnterFullName = "Enter your full name";
+const String mPhone = "Phone Number";
+const String mEnterPhone = "Enter your phone number";
+const String mLoginTitle = "Welcome Back";
+const String mLoginSubtitle = "It's great to see you again medic ally.";

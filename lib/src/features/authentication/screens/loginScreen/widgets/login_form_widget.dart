@@ -10,7 +10,7 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 50),
+        padding: const EdgeInsets.symmetric(vertical: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -22,7 +22,7 @@ class LoginForm extends StatelessWidget {
                 hintText: mEnterEmail,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const TextField(
               decoration: InputDecoration(
                 filled: true,
