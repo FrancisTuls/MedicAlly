@@ -3,8 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/color_schemes.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
-import 'package:medic_ally/src/features/authentication/screens/loginScreen/login_screen.dart';
-import 'package:animations/animations.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -64,7 +62,7 @@ class WelcomeScreen extends StatelessWidget {
                       height: 74,
                     ),
                     ElevatedButton(
-                      onPressed: () => context.go("/login"),
+                      onPressed: () => context.go("/signup"),
                       style: ElevatedButton.styleFrom(
                         elevation: 2,
                         minimumSize: const Size.fromHeight(50),
@@ -80,7 +78,7 @@ class WelcomeScreen extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.normal),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () => context.go("/login"),
                           child: const Text(
                             mLogin,
                             style: TextStyle(fontWeight: FontWeight.bold),
