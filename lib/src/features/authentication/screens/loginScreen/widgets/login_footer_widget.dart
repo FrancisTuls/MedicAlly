@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 
@@ -36,7 +37,7 @@ class LoginFooter extends StatelessWidget {
               mLoginNoAccount,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () => context.go("/signup"),
               child: const Text(
                 mSignUp,
                 style: TextStyle(fontWeight: FontWeight.bold),
