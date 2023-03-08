@@ -37,7 +37,7 @@ class LoginFooter extends StatelessWidget {
               mLoginNoAccount,
             ),
             TextButton(
-              onPressed: () => context.go("/signup"),
+              onPressed: () => context.goNamed("signup_screen"),
               child: const Text(
                 mSignUp,
                 style: TextStyle(fontWeight: FontWeight.bold),

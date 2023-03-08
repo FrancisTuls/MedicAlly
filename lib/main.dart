@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:medic_ally/src/features/authentication/screens/forgotPassScreens/forgotPassMail/forgot_pass_mail.dart';
+import 'package:medic_ally/src/features/authentication/screens/forgotPassScreens/forgotPassOtp/otp_screen.dart';
 import 'package:medic_ally/src/features/authentication/screens/loginScreen/login_screen.dart';
 import 'package:medic_ally/src/features/authentication/screens/signupScreen/signup_screen.dart';
 import 'package:medic_ally/src/features/authentication/screens/welcomeScreen/welcome_screen.dart';
@@ -23,21 +25,39 @@ class App extends StatelessWidget {
 }
 
 final _router = GoRouter(
+  debugLogDiagnostics: true,
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
       name: "welcome_screen",
       builder: (context, state) => const WelcomeScreen(),
+      routes: [
+        GoRoute(
+          path: "login",
+          name: "login_screen",
+          builder: (context, state) => const LoginScreen(),
+          routes: [
+            GoRoute(
+              path: "forgotpassmail",
+              name: "forgot_pass_mail_screen",
+              builder: (context, state) => const ForgetPassMailScreen(),
+              routes: [
+                GoRoute(
+                  path: "OTPScreen",
+                  name: "OTP_screen",
+                  builder: (context, state) => const OTPScreen(),
+                )
+              ],
+            ),
+          ],
+        ),
+        GoRoute(
+          path: "signup",
+          name: "signup_screen",
+          builder: (context, state) => const SignUpScreen(),
+        ),
+      ],
     ),
-    GoRoute(
-      path: "/login",
-      name: "login_screen",
-      builder: (context, state) => const LoginScreen(),
-    ),
-    GoRoute(
-      path: "/signup",
-      name: "signup_screen",
-      builder: (context, state) => const SignUpScreen(),
-    )
   ],
 );
