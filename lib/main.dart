@@ -5,6 +5,8 @@ import 'package:medic_ally/src/features/authentication/screens/forgotPassScreens
 import 'package:medic_ally/src/features/authentication/screens/loginScreen/login_screen.dart';
 import 'package:medic_ally/src/features/authentication/screens/signupScreen/signup_screen.dart';
 import 'package:medic_ally/src/features/authentication/screens/welcomeScreen/welcome_screen.dart';
+import 'package:medic_ally/src/features/core/screens/dashboard/dashboard.dart';
+import 'package:medic_ally/src/features/core/screens/dashboard/widgets/bottom_navbar.dart';
 import 'package:medic_ally/src/utils/theme/theme.dart';
 
 void main() => runApp(const App());
@@ -56,6 +58,11 @@ final _router = GoRouter(
           path: "signup",
           name: "signup_screen",
           builder: (context, state) => const SignUpScreen(),
+        ),
+        GoRoute(
+          path: "bottomnavbar",
+          name: "bottom_navbar",
+          builder: (context, state) => const BottomNavbar(),
         ),
       ],
     ),

@@ -66,7 +66,8 @@ class WelcomeScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         elevation: 2,
                         minimumSize: const Size.fromHeight(50),
-                        textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                        textStyle: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       child: const Text(mGetStarted),
                     ),

@@ -46,3 +46,6 @@ const String mNext = "Next";
 //--OTP Screen
 const String mOTPTitle = "OTP Verification";
 const String mOTPTSubtitle = "Enter the verification code sent at";
+
+//--Dashboard Screen
+const String mAddMed = "Add Medicine";

@@ -13,3 +13,9 @@ const String mForgotPassEmailImage =
 // -- OTP Screen Image
 const String mOtpScreen =
     "assets/images/forgot_pass_images/forgot_pass_otp.png";
+
+// -- Dashboard Images
+const String mUserProfile = "assets/images/dash-profile.png";
+const String mPill = "assets/images/dash-pill.png";
+const String mNoSchedule = "assets/images/dash-nomed.png";
+const String mNoMedicine = "assets/images/dash-empty-med.png";
