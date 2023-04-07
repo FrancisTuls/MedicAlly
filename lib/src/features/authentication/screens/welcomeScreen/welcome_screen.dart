@@ -62,11 +62,12 @@ class WelcomeScreen extends StatelessWidget {
                       height: 74,
                     ),
                     ElevatedButton(
-                      onPressed: () => context.go("/signup"),
+                      onPressed: () => context.goNamed("signup_screen"),
                       style: ElevatedButton.styleFrom(
                         elevation: 2,
                         minimumSize: const Size.fromHeight(50),
-                        textStyle: const TextStyle(fontWeight: FontWeight.bold),
+                        textStyle: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       child: const Text(mGetStarted),
                     ),
@@ -78,7 +79,7 @@ class WelcomeScreen extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.normal),
                         ),
                         TextButton(
-                          onPressed: () => context.go("/login"),
+                          onPressed: () => context.goNamed("login_screen"),
                           child: const Text(
                             mLogin,
                             style: TextStyle(fontWeight: FontWeight.bold),

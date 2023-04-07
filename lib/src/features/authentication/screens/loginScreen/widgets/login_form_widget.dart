@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
+import '../../forgotPassScreens/forgotPassOptions/forgot_pass_modal.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -34,7 +36,7 @@ class LoginForm extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             FilledButton(
-              onPressed: () {},
+              onPressed: () => context.goNamed("bottom_navbar"),
               style: FilledButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
                   textStyle: const TextStyle(fontWeight: FontWeight.bold)),
@@ -47,7 +49,9 @@ class LoginForm extends StatelessWidget {
                   mForgotPassword,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    ForgotPassModal.showModalForgotPass(context);
+                  },
                   child: const Text(
                     mReset,
                     style: TextStyle(fontWeight: FontWeight.bold),

@@ -17,9 +17,7 @@ class LoginFooter extends StatelessWidget {
           'or continue with',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        const SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         OutlinedButton.icon(
           onPressed: () {},
           icon: const FaIcon(FontAwesomeIcons.google),
@@ -27,9 +25,7 @@ class LoginFooter extends StatelessWidget {
           style:
               OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
         ),
-        const SizedBox(
-          height: 5,
-        ),
+        const SizedBox(height: 5),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -37,7 +33,7 @@ class LoginFooter extends StatelessWidget {
               mLoginNoAccount,
             ),
             TextButton(
-              onPressed: () => context.go("/signup"),
+              onPressed: () => context.goNamed("signup_screen"),
               child: const Text(
                 mSignUp,
                 style: TextStyle(fontWeight: FontWeight.bold),

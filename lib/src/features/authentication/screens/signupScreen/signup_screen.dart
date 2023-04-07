@@ -49,7 +49,7 @@ class SignUpScreen extends StatelessWidget {
                       mLoginHaveAccount,
                     ),
                     TextButton(
-                      onPressed: () => context.go("/login"),
+                      onPressed: () => context.goNamed("login_screen"),
                       child: const Text(
                         mLogin,
                         style: TextStyle(fontWeight: FontWeight.bold),
