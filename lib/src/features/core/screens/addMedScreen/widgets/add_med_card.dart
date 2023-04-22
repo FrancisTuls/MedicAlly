@@ -1,0 +1,42 @@
+import 'package:flutter/material.dart';
+import 'package:medic_ally/src/constants/text_strings.dart';
+
+class AddMedicineCard extends StatelessWidget {
+  final String title;
+  final String textFieldLabel;
+
+  const AddMedicineCard({
+    Key? key,
+    required this.title,
+    required this.textFieldLabel,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                filled: false,
+                labelText: textFieldLabel,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
