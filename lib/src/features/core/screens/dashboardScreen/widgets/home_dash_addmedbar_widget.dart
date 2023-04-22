@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 
@@ -14,7 +15,7 @@ class DashAddmed extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -22,15 +23,12 @@ class DashAddmed extends StatelessWidget {
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
+              const SizedBox(width: 100),
               Text(DateFormat('EEEE').format(DateTime.now()),
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w500)),
+                      fontSize: 20, fontWeight: FontWeight.w600)),
             ],
           ),
-          FilledButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.add),
-              label: const Text(mAddMed))
         ],
       ),
     );

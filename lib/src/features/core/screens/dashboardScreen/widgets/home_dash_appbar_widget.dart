@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:medic_ally/src/constants/text_strings.dart';
 
 class DashAppbar extends StatelessWidget implements PreferredSizeWidget {
   const DashAppbar({
@@ -30,7 +32,7 @@ class DashAppbar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               Text(
-                "Let's check your schedule for today.",
+                mDashStatusText,
                 style: TextStyle(
                   fontSize: 14,
                 ),

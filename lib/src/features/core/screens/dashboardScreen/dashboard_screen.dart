@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
-import 'package:medic_ally/src/constants/image_strings.dart';
-import 'package:medic_ally/src/features/core/screens/dashboard/widgets/bottom_navbar.dart';
-import 'package:medic_ally/src/features/core/screens/dashboard/widgets/home_dash_addmedbar_widget.dart';
-import 'package:medic_ally/src/features/core/screens/dashboard/widgets/home_dash_appbar_widget.dart';
-import 'package:calendar_timeline/calendar_timeline.dart';
+import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/home_dash_addmedbar_widget.dart';
+import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/home_dash_appbar_widget.dart';
 
 import 'widgets/home_dash_calendar_widget.dart';
 
@@ -44,6 +42,11 @@ class _DashboardState extends State<Dashboard> {
             CalendarContainer(),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => context.pushNamed('add_medicine_screen'),
+        label: const Text(mAddmed),
+        icon: const Icon(Icons.add),
       ),
     );
   }

@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:material_symbols_icons/outlined.dart';
-import 'package:material_symbols_icons/outlined_suffix.dart';
-import 'package:material_symbols_icons/rounded_suffix.dart';
-import 'package:material_symbols_icons/sharp_suffix.dart';
-import 'package:material_symbols_icons/material_symbols_icons.dart';
-import 'package:medic_ally/src/features/core/screens/dashboard/dashboard.dart';
+import 'package:medic_ally/src/features/core/screens/addSchedScreen/add_sched_screen.dart';
+import 'package:medic_ally/src/features/core/screens/dashboardScreen/dashboard_screen.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({super.key});
@@ -22,9 +16,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     const Center(
       child: Text('Medicines', style: TextStyle(fontSize: 72)),
     ),
-    const Center(
-      child: Text('Schedule', style: TextStyle(fontSize: 72)),
-    ),
+    const AddSched(),
     const Center(
       child: Text('Account', style: TextStyle(fontSize: 72)),
     ),
