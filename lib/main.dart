@@ -9,6 +9,7 @@ import 'package:medic_ally/src/features/core/screens/addMedScreen/add_med_screen
 import 'package:medic_ally/src/features/core/screens/addSchedScreen/add_sched_screen.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/dashboard_screen.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/bottom_navbar.dart';
+
 import 'package:medic_ally/src/utils/theme/theme.dart';
 
 void main() => runApp(const App());
