@@ -28,7 +28,7 @@ const String mFullName = "Full Name";
 const String mEnterFullName = "Enter your full name";
 const String mPhone = "Phone Number";
 const String mEnterPhone = "Enter your phone number";
-const String mLoginTitle = "Welcome Back";
+const String mLoginTitle = "Welcome";
 const String mLoginSubtitle = "It's great to see you again medic ally.";
 
 //--Forgot Password Screen
@@ -48,4 +48,31 @@ const String mOTPTitle = "OTP Verification";
 const String mOTPTSubtitle = "Enter the verification code sent at";
 
 //--Dashboard Screen
+const String mAddMedicine = "Add Medicine";
+const String mDashStatusText = "Let's check your schedule for today.";
+
+//--Add Medication Screen
+const String mMedication = "Medication";
+const String mMedicationName = "Medication Name";
+const String mStock = "Stock";
+const String mNumofMeds = "Number of Medicines";
+const String mContainer = "Container";
+const String mAddmed = "Add Med";
+
+//--Add Schedule Screen
+const String mAddSchedule = "Add Schedule";
+const String mDone = "Done";
+const String mTime = "Time";
+const String mAddRemTime = "Add Reminder Time";
+const String mSchedule = "Schedule";
+const String mStartDate = "Start Date:";
+const String mDuration = "Duration";
+const String mContinuous = "Continuous";
+const String mNumDays = "Number of Days:";
+const String mDays = "Days";
+const String mEveryDay = "Every Day";
+const String mSpecificDay = "Specific Days of the Week:";
+const String mRemindevery = "Remind Every:";
+const String mInputDays = "Days";
 const String mAddMed = "Add Medicine";
+

@@ -5,8 +5,11 @@ import 'package:medic_ally/src/features/authentication/screens/forgotPassScreens
 import 'package:medic_ally/src/features/authentication/screens/loginScreen/login_screen.dart';
 import 'package:medic_ally/src/features/authentication/screens/signupScreen/signup_screen.dart';
 import 'package:medic_ally/src/features/authentication/screens/welcomeScreen/welcome_screen.dart';
-import 'package:medic_ally/src/features/core/screens/dashboard/dashboard.dart';
-import 'package:medic_ally/src/features/core/screens/dashboard/widgets/bottom_navbar.dart';
+import 'package:medic_ally/src/features/core/screens/addMedScreen/add_med_screen.dart';
+import 'package:medic_ally/src/features/core/screens/addSchedScreen/add_sched_screen.dart';
+import 'package:medic_ally/src/features/core/screens/dashboardScreen/dashboard_screen.dart';
+import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/bottom_navbar.dart';
+
 import 'package:medic_ally/src/utils/theme/theme.dart';
 
 void main() => runApp(const App());
@@ -63,6 +66,25 @@ final _router = GoRouter(
           path: "bottomnavbar",
           name: "bottom_navbar",
           builder: (context, state) => const BottomNavbar(),
+          routes: [
+            GoRoute(
+              path: "dashboard",
+              name: "dashboard_screen",
+              builder: (context, state) => const Dashboard(),
+              routes: [
+                GoRoute(
+                  path: "addmedicine",
+                  name: "add_medicine_screen",
+                  builder: (context, state) => const AddMedicine(),
+                )
+              ],
+            ),
+            GoRoute(
+              path: "addschedule",
+              name: "add_schedule_screen",
+              builder: (context, state) => const AddSched(),
+            ),
+          ],
         ),
       ],
     ),
