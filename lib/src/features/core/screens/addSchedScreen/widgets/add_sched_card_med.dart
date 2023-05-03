@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:medic_ally/providers/add_medicine_provider.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
+import 'package:provider/provider.dart';
 
 class AddSchedCard extends StatefulWidget {
   const AddSchedCard({Key? key}) : super(key: key);
@@ -45,20 +47,33 @@ class _AddSchedCardState extends State<AddSchedCard> {
               ),
             ),
             const SizedBox(height: 20),
-            DropdownButtonFormField<MedLabel>(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                filled: false,
-                labelText: 'Select Medication',
-              ),
-              value: selectedMed,
-              onChanged: (MedLabel? med) {
-                setState(() {
-                  selectedMed = med;
-                });
-              },
-              items: medEntries,
-            ),
+            Consumer<AddMedicineName>(builder: (context, medicine, child) {
+              return DropdownButtonFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: false,
+                  labelText: 'Select Medication',
+                ),
+                value: medicine.medicineNames.isNotEmpty
+                    ? medicine.medicineNames.first
+                    : null,
+                items: [
+                  const DropdownMenuItem(
+                    value: '',
+                    child: Text('Select a medicine'),
+                  ),
+                  ...medicine.medicineNames.map(
+                    (medicineName) {
+                      return DropdownMenuItem(
+                        value: medicineName,
+                        child: Text(medicineName),
+                      );
+                    },
+                  ),
+                ],
+                onChanged: (value) {},
+              );
+            }),
             const SizedBox(height: 20),
             DropdownButtonFormField<int>(
               decoration: const InputDecoration(

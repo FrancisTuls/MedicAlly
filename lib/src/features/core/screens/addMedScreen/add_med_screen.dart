@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/core/screens/addMedScreen/widgets/add_med_appbar.dart';
 import 'package:medic_ally/src/features/core/screens/addMedScreen/widgets/add_med_card.dart';
 import 'package:medic_ally/src/features/core/screens/addMedScreen/widgets/add_med_card_dosage.dart';
+import 'package:medic_ally/src/features/core/screens/addSchedScreen/add_sched_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../../providers/add_medicine_provider.dart';
 
 class AddMedicine extends StatefulWidget {
   const AddMedicine({super.key});
@@ -14,6 +18,8 @@ class AddMedicine extends StatefulWidget {
 
 class _AddMedicineState extends State<AddMedicine> {
   int _selectedCircle = -1;
+
+  final TextEditingController _medicineNameController = TextEditingController();
   void _selectCircle(int index) {
     setState(() {
       _selectedCircle = index;
@@ -40,9 +46,10 @@ class _AddMedicineState extends State<AddMedicine> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AddMedicineCard(
+              AddMedicineCard(
                 title: mMedication,
                 textFieldLabel: mMedicationName,
+                controllername: _medicineNameController,
               ),
               const SizedBox(height: 10),
               const AddMedicineCardStock(),
@@ -77,8 +84,7 @@ class _AddMedicineState extends State<AddMedicine> {
               const SizedBox(height: 20),
               FilledButton.tonal(
                 onPressed: () {
-                  // navigate to the next screen
-                  context.goNamed("add_schedule_screen");
+                  _validateMedicineName();
                 },
                 style: FilledButton.styleFrom(
                     minimumSize: const Size.fromHeight(50)),
@@ -90,6 +96,31 @@ class _AddMedicineState extends State<AddMedicine> {
         ),
       ),
     );
+  }
+
+  _validateMedicineName() {
+    var mediaQuery = MediaQuery.of(context);
+    var brightness = mediaQuery.platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
+    if (_medicineNameController.text.isNotEmpty) {
+      final medicineName = _medicineNameController.text;
+      Provider.of<AddMedicineName>(context, listen: false)
+          .addMedicineName(medicineName);
+      Get.toNamed('/addsched');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Input all fields.'),
+          action: SnackBarAction(
+            label: 'Required',
+            onPressed: () {
+              // Code to execute.
+            },
+          ),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
   Widget _buildCircleAvatar(int index) {

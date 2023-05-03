@@ -42,7 +42,6 @@ class _CalendarContainerState extends State<CalendarContainer> {
         activeBackgroundDayColor:
             isDarkMode ? const Color(0xFF003063) : const Color(0xFF005DB6),
         dotsColor: const Color(0xFFF1F0F4),
-        selectableDayPredicate: (date) => date.day != 23,
         locale: 'en',
       ),
     );

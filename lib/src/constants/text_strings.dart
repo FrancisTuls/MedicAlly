@@ -66,6 +66,8 @@ const String mTime = "Time";
 const String mAddRemTime = "Add Reminder Time";
 const String mSchedule = "Schedule";
 const String mStartDate = "Start Date:";
+const String mEndDate = "End Date:";
+const String mStartHour = "Start Hour:";
 const String mDuration = "Duration";
 const String mContinuous = "Continuous";
 const String mNumDays = "Number of Days:";
@@ -74,5 +76,24 @@ const String mEveryDay = "Every Day";
 const String mSpecificDay = "Specific Days of the Week:";
 const String mRemindevery = "Remind Every:";
 const String mInputDays = "Days";
+
+//--Profile Screen
+const String mProfile = "Profile";
+const String mEditProfile = "Edit Profile";
+const String mLogoutHeading = "Logout";
+const String mProfileHeading = "Francis Tulang";
+const String mProfileSubheading = "francisiantulang@gmail.com";
+
+//--Profile Screen -- Menu
+const String mMenu1 = "Settings";
+const String mMenu2 = "User Management";
+const String mMenu3 = "Information";
+const String mMenu4 = "Log out";
+
+//--Update Profile Screen
+const String mDelete = "Delete";
+const String mJoined = "Joined: ";
+const String mJoinedDate = "30 April 2023";
+
 const String mAddMed = "Add Medicine";
 

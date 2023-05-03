@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/home_dash_addmedbar_widget.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/home_dash_appbar_widget.dart';
@@ -44,7 +44,9 @@ class _DashboardState extends State<Dashboard> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.pushNamed('add_medicine_screen'),
+        onPressed: () {
+          Get.toNamed('/addmed');
+        },
         label: const Text(mAddmed),
         icon: const Icon(Icons.add),
       ),

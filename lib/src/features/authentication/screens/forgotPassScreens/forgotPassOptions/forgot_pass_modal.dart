@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../constants/text_strings.dart';
 import 'forgot_pass_button_widget.dart';
@@ -27,7 +28,7 @@ class ForgotPassModal {
                 subtitle: mResetEmailSubtitle,
                 onTap: () {
                   Navigator.pop(context);
-                  context.pushNamed("forgot_pass_mail_screen");
+                  Get.toNamed("forgot_pass_mail_screen");
                 }),
             const SizedBox(height: 20),
             ForgetPassButton(

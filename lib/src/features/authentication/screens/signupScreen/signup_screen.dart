@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/common_widgets/form/form_header_widget.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
@@ -49,7 +50,9 @@ class SignUpScreen extends StatelessWidget {
                       mLoginHaveAccount,
                     ),
                     TextButton(
-                      onPressed: () => context.goNamed("login_screen"),
+                      onPressed: () {
+                        Get.toNamed('/login');
+                      },
                       child: const Text(
                         mLogin,
                         style: TextStyle(fontWeight: FontWeight.bold),
