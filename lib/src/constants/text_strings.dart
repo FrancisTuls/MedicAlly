@@ -83,6 +83,7 @@ const String mEditProfile = "Edit Profile";
 const String mLogoutHeading = "Logout";
 const String mProfileHeading = "Francis Tulang";
 const String mProfileSubheading = "francisiantulang@gmail.com";
+
 //--Profile Screen -- Menu
 const String mMenu1 = "Settings";
 const String mMenu2 = "User Management";
@@ -93,3 +94,6 @@ const String mMenu4 = "Log out";
 const String mDelete = "Delete";
 const String mJoined = "Joined: ";
 const String mJoinedDate = "30 April 2023";
+
+const String mAddMed = "Add Medicine";
+

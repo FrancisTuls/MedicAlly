@@ -44,6 +44,11 @@ dependencies:
   intl: ^0.18.0
   material_symbols_icons: ^4.39.3
   provider: ^6.0.5
+  flutter_otp_text_field: ^1.1.0+2
+  get: ^4.6.5
+  intl: ^0.18.0
+  calendar_timeline: ^1.1.2
+  material_symbols_icons: ^4.39.3
 
 flutter_native_splash:
   image: assets/images/splash_images/medicAlly_splash_logo_light.png
