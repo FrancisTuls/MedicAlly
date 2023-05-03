@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
@@ -54,7 +55,9 @@ class ForgetPassMailScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: FilledButton(
-                        onPressed: () => context.pushNamed("OTP_screen"),
+                        onPressed: () {
+                          Get.toNamed('/OTPScreen');
+                        },
                         style: FilledButton.styleFrom(
                             minimumSize: const Size.fromHeight(50),
                             textStyle:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppConstants {
-  static bool showIntervalField = false;
+  static bool showReminderTime = true;
+  static bool showRemindEvery = false;
 }

@@ -15,7 +15,7 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
   bool _isContinuous = true;
   bool _isSpecificDays = false;
   bool _isRemindEvery = false;
-  bool _isVisible = false;
+  bool _isVisible = true;
 
   String _startDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
   int? _numberOfDays;
@@ -32,7 +32,10 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
     if (selectedDate != null) {
       setState(() {
         _startDate = DateFormat('MM/dd/yyyy').format(selectedDate);
+        print(_startDate);
       });
+    } else {
+      print("Error");
     }
   }
 
@@ -111,119 +114,58 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
           ),
           const SizedBox(height: 20),
           const Text(
-            mDuration,
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          Column(children: [
-            Row(
-              children: [
-                Radio(
-                  value: true,
-                  groupValue: _isContinuous,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _isContinuous = value!;
-                      _numberOfDays = null;
-                    });
-                  },
-                ),
-                const Text(mContinuous),
-              ],
-            ),
-            Row(
-              children: [
-                Radio(
-                  value: false,
-                  groupValue: _isContinuous,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _isContinuous = value!;
-                    });
-                  },
-                ),
-                const Text(mNumDays),
-                const SizedBox(width: 10),
-                _isContinuous
-                    ? const SizedBox()
-                    : SizedBox(
-                        width: 100,
-                        height: 40,
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: mInputDays,
-                          ),
-                          onChanged: (value) {
-                            setState(() {
-                              _numberOfDays = int.tryParse(value);
-                            });
-                          },
-                        ),
-                      )
-              ],
-            ),
-          ]),
-          const SizedBox(height: 20),
-          Visibility(
-            visible: AppConstants.showIntervalField,
-            child: const Text(
-              mDays,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
+            mDays,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
             ),
           ),
-          Visibility(
-            visible: AppConstants.showIntervalField,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Radio(
-                      value: false,
-                      groupValue: _isSpecificDays,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _isSpecificDays = value!;
-                        });
-                      },
-                    ),
-                    const Text(mEveryDay),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Radio(
-                      value: true,
-                      groupValue: _isSpecificDays,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          _isSpecificDays = value!;
-                          if (_isSpecificDays) {
-                            _selectDays(context);
-                          }
-                        });
-                      },
-                    ),
-                    const Text(mSpecificDay),
-                  ],
-                ),
-                if (_isSpecificDays && _selectedDates.isNotEmpty)
-                  const SizedBox(height: 10),
-                Visibility(
-                  visible: _isSpecificDays && _selectedDates.isNotEmpty,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: _selectedDates.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final DateFormat formatter = DateFormat('EEE');
-                      return Text(formatter.format(_selectedDates[index]));
+          Column(
+            children: [
+              Row(
+                children: [
+                  Radio(
+                    value: false,
+                    groupValue: _isSpecificDays,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isSpecificDays = value!;
+                      });
                     },
                   ),
+                  const Text(mEveryDay),
+                ],
+              ),
+              Row(
+                children: [
+                  Radio(
+                    value: true,
+                    groupValue: _isSpecificDays,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isSpecificDays = value!;
+                        if (_isSpecificDays) {
+                          _selectDays(context);
+                        }
+                      });
+                    },
+                  ),
+                  const Text(mSpecificDay),
+                ],
+              ),
+              if (_isSpecificDays && _selectedDates.isNotEmpty)
+                const SizedBox(height: 10),
+              Visibility(
+                visible: _isSpecificDays && _selectedDates.isNotEmpty,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _selectedDates.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final DateFormat formatter = DateFormat('EEE');
+                    return Text(formatter.format(_selectedDates[index]));
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),

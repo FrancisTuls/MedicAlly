@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "91891815469",
+    "project_id": "medically-5c839",
+    "storage_bucket": "medically-5c839.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91891815469:android:3b56a172786777320e14a4",
+        "android_client_info": {
+          "package_name": "com.example.medic_ally"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91891815469-3scbpd84p6ivd1qmoe8kjinibd5oo2mq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.medic_ally",
+            "certificate_hash": "2a4a6459ec4a5aeceb8dc71757877b1505b876cc"
+          }
+        },
+        {
+          "client_id": "91891815469-ej60ddhcfqgrvafm5a5sbnpklo4r8jr9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQL2ggzfg5NEmPVj1GivqH4WZopf2IhpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91891815469-ej60ddhcfqgrvafm5a5sbnpklo4r8jr9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "91891815469-tq1h3mpfbvju023ovofrf9jaqqsmgp2l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.medicAlly"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
