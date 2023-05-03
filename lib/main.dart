@@ -9,6 +9,10 @@ import 'package:medic_ally/src/features/core/screens/addMedScreen/add_med_screen
 import 'package:medic_ally/src/features/core/screens/addSchedScreen/add_sched_screen.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/dashboard_screen.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/bottom_navbar.dart';
+import 'package:medic_ally/src/features/core/screens/espConnectionScreen/connected_Screen.dart';
+import 'package:medic_ally/src/features/core/screens/espConnectionScreen/device_connected_Screen.dart';
+import 'package:medic_ally/src/features/core/screens/espConnectionScreen/esp_Connection_Screen.dart';
+import 'package:medic_ally/src/features/core/screens/espConnectionScreen/searching_connection_Screen.dart';
 import 'package:medic_ally/src/utils/theme/theme.dart';
 
 void main() => runApp(const App());
@@ -24,6 +28,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       routerConfig: _router,
       title: "MedicAlly",
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -53,6 +58,28 @@ final _router = GoRouter(
                   builder: (context, state) => const OTPScreen(),
                 )
               ],
+            ),
+          ],
+        ),
+        GoRoute(
+          path: "esp_connection",
+          name: "esp_Connection_Screen",
+          builder: (context, state) => const EspConnection(),
+          routes: [
+            GoRoute(
+              path: "searching_screen",
+              name: "searching_connection_Screen",
+              builder: (context, state) => const SearchConnection(),
+            ),
+            GoRoute(
+              path: "device_connected",
+              name: "device_connected_Screen",
+              builder: (context, state) => const DeviceFound(),
+            ),
+            GoRoute(
+              path: "success_connection",
+              name: "connected_Screen",
+              builder: (context, state) => const ConnectedScreen(),
             ),
           ],
         ),
