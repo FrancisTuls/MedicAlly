@@ -76,6 +76,7 @@ const String mEveryDay = "Every Day";
 const String mSpecificDay = "Specific Days of the Week:";
 const String mRemindevery = "Remind Every:";
 const String mInputDays = "Days";
+const String mAddMed = "Add Medicine";
 
 //--Setup Device Screen
 const String mStep1 = "Step 1: Setup Device";
