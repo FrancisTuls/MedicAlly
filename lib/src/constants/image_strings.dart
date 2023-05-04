@@ -31,3 +31,10 @@ const String mSetupDeviceSearching =
     'assets/images/setup_device_images/searching_device_image.png';
 const String mSuccessConnection =
     'assets/images/setup_device_images/connected_image.png';
+
+const String mPill = "assets/images/dashboard/dash-pill.png";
+const String mNoSchedule = "assets/images/dashboard/dash-nomed.png";
+const String mNoMedicine = "assets/images/dashboard/dash-empty-med.png";
+
+// -- Profile Images
+const String mUserProfile = "assets/images/profile/profile_image.png";

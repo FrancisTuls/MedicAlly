@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
+import 'package:medic_ally/src/features/authentication/controllers/otp_controller.dart';
 
 class OTPScreen extends StatelessWidget {
   const OTPScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var otpController = Get.put(OTPController());
+    var otp;
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +35,7 @@ class OTPScreen extends StatelessWidget {
                 height: 30,
               ),
               const Text(
-                "$mOTPTSubtitle test@gmail.com",
+                "$mOTPTSubtitle medicAlly@gmail.com",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
               ),
@@ -48,7 +51,8 @@ class OTPScreen extends StatelessWidget {
                   //handle validation or checks here
                 },
                 onSubmit: (code) {
-                  print("OTP is => $code");
+                  otp = code;
+                  OTPController.instance.verifyOTP(otp);
                 },
                 textStyle:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -61,7 +65,9 @@ class OTPScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: () => context.pushNamed(""),
+                  onPressed: () {
+                    OTPController.instance.verifyOTP(otp);
+                  },
                   style: FilledButton.styleFrom(
                       minimumSize: const Size.fromHeight(50),
                       textStyle: const TextStyle(fontWeight: FontWeight.bold)),

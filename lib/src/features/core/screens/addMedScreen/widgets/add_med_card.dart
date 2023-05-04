@@ -4,11 +4,13 @@ import 'package:medic_ally/src/constants/text_strings.dart';
 class AddMedicineCard extends StatelessWidget {
   final String title;
   final String textFieldLabel;
+  final TextEditingController controllername;
 
   const AddMedicineCard({
     Key? key,
     required this.title,
     required this.textFieldLabel,
+    required this.controllername,
   }) : super(key: key);
 
   @override
@@ -28,6 +30,7 @@ class AddMedicineCard extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
+              controller: controllername,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 filled: false,

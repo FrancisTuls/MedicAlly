@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/color_schemes.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
@@ -62,7 +63,9 @@ class WelcomeScreen extends StatelessWidget {
                       height: 74,
                     ),
                     ElevatedButton(
-                      onPressed: () => context.goNamed("signup_screen"),
+                      onPressed: () {
+                        Get.toNamed('/signup');
+                      },
                       style: ElevatedButton.styleFrom(
                         elevation: 2,
                         minimumSize: const Size.fromHeight(50),
@@ -79,7 +82,9 @@ class WelcomeScreen extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.normal),
                         ),
                         TextButton(
-                          onPressed: () => context.goNamed("login_screen"),
+                          onPressed: () {
+                            Get.toNamed('/login');
+                          },
                           child: const Text(
                             mLogin,
                             style: TextStyle(fontWeight: FontWeight.bold),

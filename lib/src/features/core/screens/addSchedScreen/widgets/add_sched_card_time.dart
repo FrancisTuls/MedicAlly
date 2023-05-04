@@ -13,6 +13,12 @@ class AddSchedCardTime extends StatefulWidget {
 class _AddSchedCardTimeState extends State<AddSchedCardTime> {
   String _selectedWhen = 'AM';
   String _selectedFreq = 'x times a day';
+  String _startHour = DateFormat("h:mm a").format(DateTime.now()).toString();
+
+  int _selectRemindEvery = 13;
+
+  List<int> remindEveryList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
   TimeOfDay _selectedTime = TimeOfDay(hour: 8, minute: 0);
 
   Future<void> _selectTime(BuildContext context, int index) async {
@@ -29,7 +35,7 @@ class _AddSchedCardTimeState extends State<AddSchedCardTime> {
 
   void updateIntervalField(bool value) {
     setState(() {
-      AppConstants.showIntervalField = value;
+      AppConstants.showReminderTime = value;
     });
   }
 
@@ -58,6 +64,56 @@ class _AddSchedCardTimeState extends State<AddSchedCardTime> {
           onPressed: () => _selectTime(context, index),
         ),
       ),
+    );
+  }
+
+  Widget _buildRemindEvery() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Text(
+              mRemindevery,
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(width: 10),
+            DropdownButton(
+              items: remindEveryList.map<DropdownMenuItem<String>>((int value) {
+                return DropdownMenuItem<String>(
+                  value: value.toString(),
+                  child: Text(value.toString()),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectRemindEvery = int.parse(newValue!);
+                });
+              },
+              hint: Text(
+                "$_selectRemindEvery hours",
+                style: const TextStyle(color: Color(0xFF005DB6)),
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            const Text(
+              mStartHour,
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
+            const SizedBox(width: 10),
+            OutlinedButton(
+              onPressed: () {
+                _getStartHourFromUser(isStartHour: true);
+              },
+              child: Text(_startHour),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -103,26 +159,6 @@ class _AddSchedCardTimeState extends State<AddSchedCardTime> {
             ),
             const SizedBox(height: 20),
             DropdownButtonFormField(
-              value: _selectedWhen,
-              isExpanded: true,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), labelText: "When to Take"),
-              onChanged: (value) {
-                setState(() {
-                  _selectedWhen = value!;
-                });
-              },
-              items: ['AM', 'PM']
-                  .map(
-                    (e) => DropdownMenuItem<String>(
-                      value: e,
-                      child: Text(e),
-                    ),
-                  )
-                  .toList(),
-            ),
-            const SizedBox(height: 20),
-            DropdownButtonFormField(
               value: _selectedFreq,
               isExpanded: true,
               decoration: const InputDecoration(
@@ -134,9 +170,11 @@ class _AddSchedCardTimeState extends State<AddSchedCardTime> {
                 setState(() {
                   _selectedFreq = value!;
                   if (value == 'every x hours') {
-                    AppConstants.showIntervalField = false;
+                    AppConstants.showReminderTime = false;
+                    AppConstants.showRemindEvery = true;
                   } else {
-                    AppConstants.showIntervalField = true;
+                    AppConstants.showReminderTime = true;
+                    AppConstants.showRemindEvery = false;
                   }
                 });
               },
@@ -154,7 +192,7 @@ class _AddSchedCardTimeState extends State<AddSchedCardTime> {
             ),
             const SizedBox(height: 20),
             Visibility(
-              visible: AppConstants.showIntervalField,
+              visible: AppConstants.showReminderTime,
               child: OutlinedButton.icon(
                 onPressed: () {
                   setState(() {
@@ -167,8 +205,11 @@ class _AddSchedCardTimeState extends State<AddSchedCardTime> {
             ),
             const SizedBox(height: 8),
             Visibility(
-                visible: AppConstants.showIntervalField,
+                visible: AppConstants.showReminderTime,
                 child: _buildReminderChips()),
+            Visibility(
+                visible: AppConstants.showRemindEvery,
+                child: _buildRemindEvery())
 
             /*OutlinedButton.icon(
               onPressed: _addReminderTime,
@@ -192,5 +233,26 @@ class _AddSchedCardTimeState extends State<AddSchedCardTime> {
         ),
       ),
     );
+  }
+
+  _getStartHourFromUser({required bool isStartHour}) async {
+    var selectedStartHour = await _showTimePicker();
+    String _formattedTime = selectedStartHour.format(context);
+    if (selectedStartHour == null) {
+      print("Cancelled");
+    } else if (isStartHour == true) {
+      setState(() {
+        _startHour = _formattedTime;
+      });
+    }
+  }
+
+  _showTimePicker() {
+    return showTimePicker(
+        initialEntryMode: TimePickerEntryMode.dial,
+        context: context,
+        initialTime: TimeOfDay(
+            hour: int.parse(_startHour.split(":")[0]),
+            minute: int.parse(_startHour.split(":")[1].split(" ")[0])));
   }
 }
