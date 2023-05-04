@@ -1,5 +1,7 @@
 /* -- App Text Strings -- */
 // -- GET STARTED
+import 'package:flutter/material.dart';
+
 const String mGetStarted = "Get Started";
 const String mLogin = "Log In";
 
@@ -97,3 +99,16 @@ const String mJoinedDate = "30 April 2023";
 
 const String mAddMed = "Add Medicine";
 
+//--Setup Device Screen
+const String mStep1 = "Step 1: Setup Device";
+const String mStep1_1 = "Is your MedicAlly Device turned on?";
+const String mSearch1 = "Searching for Device";
+const String mSearch1_1 =
+    "Make sure your Medicine Dispenser is on while MedicAlly app is searching for a device.";
+const String mSearch1_2 =
+    "If there's a problem connecting with the device, please reboot the MedicAlly device.";
+const String mDeviceFound1 = 'Device Found';
+const String mDeviceFound1_1 = 'Enter Your Device ID Number';
+const String mIDnumber = 'ID Number';
+const String mEnterIDnumber = 'Enter ID Number';
+const String mConnected = 'Connected';
