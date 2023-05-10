@@ -19,7 +19,7 @@ class DeviceFound extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
             alignment: Alignment.topCenter,
             child: const Image(
               alignment: Alignment.center,
@@ -30,31 +30,31 @@ class DeviceFound extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.topCenter,
-            padding: EdgeInsets.all(35),
+            padding: const EdgeInsets.all(35),
             child: Column(
               children: const [
                 Text(
                   mDeviceFound1,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                      color: Color.fromARGB(230, 0, 0, 0)),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
                 ),
                 Text(
                   mDeviceFound1_1,
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15,
-                      color: Color.fromARGB(110, 0, 0, 0)),
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15,
+                  ),
                 ),
                 DeviceFoundForm(),
               ],
             ),
           ),
           Container(
-            padding: EdgeInsets.all(30),
+            padding: const EdgeInsets.all(30),
             alignment: Alignment.center,
             child: Center(
                 child: Column(

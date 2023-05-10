@@ -10,14 +10,16 @@ import 'package:medic_ally/src/features/authentication/screens/forgotPassScreens
 import 'package:medic_ally/src/features/authentication/screens/loginScreen/login_screen.dart';
 import 'package:medic_ally/src/features/authentication/screens/signupScreen/signup_screen.dart';
 import 'package:medic_ally/src/features/authentication/screens/welcomeScreen/welcome_screen.dart';
+import 'package:medic_ally/src/features/core/models/dependency_injection.dart';
 import 'package:medic_ally/src/features/core/screens/addMedScreen/add_med_screen.dart';
 import 'package:medic_ally/src/features/core/screens/addSchedScreen/add_sched_screen.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/dashboard_screen.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/bottom_navbar.dart';
 import 'package:medic_ally/src/features/core/screens/espConnectionScreen/connected_Screen.dart';
 import 'package:medic_ally/src/features/core/screens/espConnectionScreen/device_connected_Screen.dart';
-import 'package:medic_ally/src/features/core/screens/espConnectionScreen/esp_Connection_Screen.dart';
+import 'package:medic_ally/src/features/core/screens/espConnectionScreen/esp_connection_screen.dart';
 import 'package:medic_ally/src/features/core/screens/espConnectionScreen/searching_connection_Screen.dart';
+import 'package:medic_ally/src/features/core/screens/medicineScreen/medicine_Screen.dart';
 import 'package:medic_ally/src/features/core/screens/profile/profile_screen.dart';
 import 'package:medic_ally/src/features/core/screens/profile/update_profile_screen.dart';
 import 'package:medic_ally/src/repository/authentication_repository/authentication_repository.dart';
@@ -34,9 +36,20 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => AddMedicineName()),
+      ChangeNotifierProvider(create: (_) => AddMedicineStock()),
+      ChangeNotifierProvider(create: (_) => SelectedCircleProvider()),
+      ChangeNotifierProvider(create: (_) => ListMedicineNames()),
+      ChangeNotifierProvider(
+        create: (_) => SelectedDosage(),
+      ),
+      ChangeNotifierProvider(create: (_) => SelectedTimeProvider()),
+      ChangeNotifierProvider(
+        create: (_) => SelectedDateProvider(),
+      ),
     ],
     child: const App(),
   ));
+  DependencyInjection.init();
 }
 
 class App extends StatelessWidget {
@@ -68,6 +81,15 @@ class App extends StatelessWidget {
         GetPage(name: '/profile', page: () => const ProfileScreen()),
         GetPage(
             name: '/update_profile', page: () => const UpdateProfileScreen()),
+        GetPage(
+            name: '/esp_connection',
+            page: () => const /*LoginScreen()*/ EspConnection()),
+        GetPage(
+            name: '/searching_screen', page: () => const SearchConnection()),
+        GetPage(name: '/device_connected', page: () => const DeviceFound()),
+        GetPage(
+            name: '/success_connection', page: () => const ConnectedScreen()),
+        GetPage(name: '/medicine_screen', page: () => const MedicineScreen()),
       ],
     );
   }
