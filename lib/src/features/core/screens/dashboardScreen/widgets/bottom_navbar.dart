@@ -16,7 +16,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   final screens = [
     const Dashboard(),
     const MedicineScreen(),
-    const AddSched(),
+    AddSched(),
     const ProfileScreen(),
   ];
 

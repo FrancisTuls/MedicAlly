@@ -2,8 +2,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:medic_ally/providers/add_medicine_provider.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
+import 'package:medic_ally/src/features/core/controllers/medicine_reminder.dart';
 import 'package:medic_ally/src/features/core/models/med_details.dart';
 import 'package:medic_ally/src/features/core/models/med_reminder.dart';
 import 'package:medic_ally/src/features/core/screens/addSchedScreen/widgets/add_sched_appbar.dart';
@@ -13,7 +16,9 @@ import 'package:medic_ally/src/features/core/screens/addSchedScreen/widgets/add_
 import 'package:provider/provider.dart';
 
 class AddSched extends StatelessWidget {
-  const AddSched({super.key});
+  AddSched({super.key});
+
+  final MedReminderController _medController = Get.put(MedReminderController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +31,14 @@ class AddSched extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const AddSchedCard(),
+              const SizedBox(height: 20),
               //const AddSchedCardTime(),
               const AddSchedCardSched(),
               const SizedBox(height: 20),
               FilledButton.tonal(
                 onPressed: () {
                   _addMedReminderToDB(context);
+                  Get.offNamed('/botnavbar');
                 },
                 style: FilledButton.styleFrom(
                     minimumSize: const Size.fromHeight(50)),
@@ -46,9 +53,11 @@ class AddSched extends StatelessWidget {
   }
 
   _addMedReminderToDB(BuildContext context) async {
-    final selectedDateProvider = Provider.of<SelectedDateProvider>(context);
+    final selectedDateProvider =
+        Provider.of<SelectedDateProvider>(context, listen: false);
     final selectedDate = selectedDateProvider.selectedDate;
-    final selectedTimeProvider = Provider.of<SelectedTimeProvider>(context);
+    final selectedTimeProvider =
+        Provider.of<SelectedTimeProvider>(context, listen: false);
     final selectedTime = selectedTimeProvider.selectedTime;
     final CollectionReference medReminderCollection =
         FirebaseFirestore.instance.collection('MedicineReminder');
@@ -67,18 +76,18 @@ class AddSched extends StatelessWidget {
     final stock = medDetailsDoc['stock'];
     final container = medDetailsDoc['container'];
 
-    final medReminder = MedReminder(
+    final med = MedReminder(
       id: null,
       medName: medName,
       stock: stock,
       dosage: dosage,
       isCompleted: 0,
-      startDate: selectedDate.toString(),
+      startDate:
+          DateFormat.yMd().format(selectedDate) /*selectedDate.toString()*/,
       remTime: selectedTime.toString(),
       container: container,
     );
-    medReminderCollection
-        .doc(selectedContainer.toString())
-        .set(medReminder.toJson());
+
+    medReminderCollection.doc(selectedContainer.toString()).set(med.toJson());
   }
 }

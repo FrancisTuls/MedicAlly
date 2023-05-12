@@ -77,7 +77,7 @@ class App extends StatelessWidget {
         GetPage(name: '/botnavbar', page: () => const BottomNavbar()),
         GetPage(name: '/dashboard', page: () => const Dashboard()),
         GetPage(name: '/addmed', page: () => const AddMedicine()),
-        GetPage(name: '/addsched', page: () => const AddSched()),
+        GetPage(name: '/addsched', page: () => AddSched()),
         GetPage(name: '/profile', page: () => const ProfileScreen()),
         GetPage(
             name: '/update_profile', page: () => const UpdateProfileScreen()),

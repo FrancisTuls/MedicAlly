@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medic_ally/src/features/core/models/med_reminder.dart';
@@ -8,7 +9,26 @@ class MedReminderController extends GetxController {
     super.onReady();
   }
 
-  Future<void>? addMed({MedReminder? med}) {
-    return null;
+  var medList = <MedReminder>[].obs;
+
+  /*Future<void>? addMed({MedReminder? med}) async {
+    return await DBHelper.insert()
+  }*/
+
+  void getMedReminders() async {
+    final collection =
+        FirebaseFirestore.instance.collection('MedicineReminder');
+    final snapshot = await collection.get();
+    medList.assignAll(
+      snapshot.docs
+          .map(
+            (doc) => MedReminder(
+              id: doc.id,
+              medName: doc.data()['medName'],
+              remTime: doc.data()['remTime'],
+            ),
+          )
+          .toList(),
+    );
   }
 }

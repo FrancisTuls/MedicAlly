@@ -19,6 +19,8 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
   bool _isRemindEvery = false;
   bool _isVisible = true;*/
 
+  String? _time;
+
   String _startDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
   //int? _numberOfDays;
   TimeOfDay _reminderTime = const TimeOfDay(hour: 8, minute: 0);
@@ -51,7 +53,9 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
     if (selectedTime != null) {
       setState(() {
         _reminderTime = selectedTime;
-        selectedTimeProvider.selectedTime = selectedTime;
+        String period = selectedTime.period == DayPeriod.am ? 'AM' : 'PM';
+        _time = '${selectedTime.hour}:${selectedTime.minute} $period';
+        selectedTimeProvider.selectedTime = _time.toString();
       });
     }
   }

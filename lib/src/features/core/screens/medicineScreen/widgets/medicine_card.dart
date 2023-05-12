@@ -67,7 +67,7 @@ class MedicineStockCard extends StatelessWidget {
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(),
                   child: Container(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(5.0),
                     height: 300,
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
