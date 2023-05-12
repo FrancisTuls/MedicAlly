@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/add_med_floating_button.dart';
 import 'package:medic_ally/src/features/core/screens/medicineScreen/widgets/medicine_appbar.dart';
 import 'package:medic_ally/src/features/core/screens/medicineScreen/widgets/medicine_card.dart';
 import 'package:medic_ally/src/features/core/screens/medicineScreen/widgets/medicine_label_fields.dart';
@@ -20,6 +21,7 @@ class MedicineScreen extends StatelessWidget {
           ],
         ),
       )),
+      floatingActionButton: const AddMedFloating(),
     );
   }
 }

@@ -160,11 +160,11 @@ class _AddMedicineState extends State<AddMedicine> {
             backgroundColor: index == 1
                 ? Colors.red
                 : index == 2
-                    ? Colors.blue
+                    ? Colors.orange
                     : index == 3
-                        ? Colors.green
+                        ? Colors.yellow
                         : index == 4
-                            ? Colors.yellow
+                            ? Colors.green
                             : null,
             child: isSelected
                 ? const Icon(Icons.check)

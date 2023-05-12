@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/repository/authentication_repository/authentication_repository.dart';
 
@@ -23,7 +24,7 @@ class DashAppbar extends StatelessWidget implements PreferredSizeWidget {
             icon: const CircleAvatar(
               radius: 24,
               backgroundColor: Color.fromARGB(255, 85, 147, 254),
-              child: Text('AH'),
+              foregroundImage: AssetImage(mUserProfile),
             ),
           ),
           const SizedBox(width: 10),

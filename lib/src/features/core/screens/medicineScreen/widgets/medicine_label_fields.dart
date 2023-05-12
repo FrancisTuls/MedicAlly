@@ -22,7 +22,7 @@ class MedicineLabelFields extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(10),
-              width: 200,
+              width: 180,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: isDarkMode ? Colors.blueGrey : Colors.white,
@@ -40,7 +40,7 @@ class MedicineLabelFields extends StatelessWidget {
             const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.all(10),
-              width: 90,
+              width: 80,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: isDarkMode ? Colors.blueGrey : Colors.white,

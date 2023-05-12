@@ -78,13 +78,20 @@ class SelectedDosage extends ChangeNotifier {
 }
 
 class SelectedTimeProvider with ChangeNotifier {
-  TimeOfDay _selectedTime = const TimeOfDay(hour: 8, minute: 0);
+  String _selectedTime = "8:00 AM";
 
-  TimeOfDay get selectedTime => _selectedTime;
+  String get selectedTime => _selectedTime;
 
-  set selectedTime(TimeOfDay selectedTime) {
+  set selectedTime(String selectedTime) {
     _selectedTime = selectedTime;
     notifyListeners();
+    //TimeOfDay _selectedTime = const TimeOfDay(hour: 8, minute: 0);
+
+    //TimeOfDay get selectedTime => _selectedTime;
+
+    /*set selectedTime(TimeOfDay selectedTime) {
+    _selectedTime = selectedTime;
+    notifyListeners();*/
   }
 }
 
