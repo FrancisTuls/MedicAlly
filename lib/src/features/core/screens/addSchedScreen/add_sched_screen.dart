@@ -1,6 +1,7 @@
 //import 'dart:js';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -52,15 +53,15 @@ class AddSched extends StatelessWidget {
     );
   }
 
-  _addMedReminderToDB(BuildContext context) async {
+  void _addMedReminderToDB(BuildContext context) async {
     final selectedDateProvider =
         Provider.of<SelectedDateProvider>(context, listen: false);
     final selectedDate = selectedDateProvider.selectedDate;
     final selectedTimeProvider =
         Provider.of<SelectedTimeProvider>(context, listen: false);
     final selectedTime = selectedTimeProvider.selectedTime;
-    final CollectionReference medReminderCollection =
-        FirebaseFirestore.instance.collection('MedicineReminder');
+    final CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('Users');
     final dosage =
         Provider.of<SelectedDosage>(context, listen: false).selectedNumber;
 
@@ -68,7 +69,10 @@ class AddSched extends StatelessWidget {
         Provider.of<SelectedCircleProvider>(context, listen: false)
             .selectedCircle;
 
+    final currentUser = FirebaseAuth.instance.currentUser;
     final medDetailsDoc = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(currentUser?.uid)
         .collection('MedicineDetails')
         .doc(selectedContainer.toString())
         .get();
@@ -88,6 +92,12 @@ class AddSched extends StatelessWidget {
       container: container,
     );
 
-    medReminderCollection.doc(selectedContainer.toString()).set(med.toJson());
+    if (currentUser != null) {
+      final userDocRef = usersCollection.doc(currentUser.uid);
+      userDocRef
+          .collection('MedicineReminder')
+          .doc(selectedContainer.toString())
+          .set(med.toJson());
+    }
   }
 }

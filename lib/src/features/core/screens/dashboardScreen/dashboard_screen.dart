@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
@@ -60,6 +61,8 @@ class _DashboardState extends State<Dashboard> {
     return Expanded(
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
+            .collection('Users')
+            .doc(FirebaseAuth.instance.currentUser?.uid)
             .collection('MedicineReminder')
             .snapshots(),
         builder: (context, snapshot) {
@@ -127,6 +130,8 @@ class _DashboardState extends State<Dashboard> {
 
   void deleteReminder(String docId) async {
     final doc = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection('MedicineReminder')
         .doc(docId)
         .get();

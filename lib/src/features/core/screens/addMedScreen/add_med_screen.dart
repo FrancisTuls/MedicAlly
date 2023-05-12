@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
@@ -128,9 +129,9 @@ class _AddMedicineState extends State<AddMedicine> {
     }
   }
 
-  _addMedDetailsToDB() {
-    final CollectionReference medDetailsCollection =
-        FirebaseFirestore.instance.collection('MedicineDetails');
+  void _addMedDetailsToDB() {
+    final CollectionReference usersCollection =
+        FirebaseFirestore.instance.collection('Users');
     final selectedContainer =
         Provider.of<SelectedCircleProvider>(context, listen: false)
             .selectedCircle;
@@ -142,9 +143,15 @@ class _AddMedicineState extends State<AddMedicine> {
       stock: stock!,
       container: selectedContainer,
     );
-    medDetailsCollection
-        .doc(selectedContainer.toString())
-        .set(medDetails.toJson());
+
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      final userDocRef = usersCollection.doc(currentUser.uid);
+      userDocRef
+          .collection('MedicineDetails')
+          .doc(selectedContainer.toString())
+          .set(medDetails.toJson());
+    }
   }
 
   Widget _buildCircleAvatar(int index) {

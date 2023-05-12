@@ -15,20 +15,21 @@ class MedReminderController extends GetxController {
     return await DBHelper.insert()
   }*/
 
-  void getMedReminders() async {
-    final collection =
+  void addMedRemindersToUser(String userId) async {
+    final userRef = FirebaseFirestore.instance.collection('Users').doc(userId);
+    final medRemindersCollection =
         FirebaseFirestore.instance.collection('MedicineReminder');
-    final snapshot = await collection.get();
-    medList.assignAll(
-      snapshot.docs
-          .map(
-            (doc) => MedReminder(
-              id: doc.id,
-              medName: doc.data()['medName'],
-              remTime: doc.data()['remTime'],
-            ),
-          )
-          .toList(),
-    );
+    final snapshot = await medRemindersCollection.get();
+    final medList = snapshot.docs
+        .map(
+          (doc) => MedReminder(
+            id: doc.id,
+            medName: doc.data()['medName'],
+            remTime: doc.data()['remTime'],
+          ),
+        )
+        .toList();
+
+    await userRef.update({'medReminders': medList});
   }
 }

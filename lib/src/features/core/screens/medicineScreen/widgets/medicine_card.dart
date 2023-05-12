@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/core/screens/medicineScreen/widgets/medicine_label_fields.dart';
@@ -47,6 +48,8 @@ class MedicineStockCard extends StatelessWidget {
           const SizedBox(height: 20),
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
+                .collection('Users')
+                .doc(FirebaseAuth.instance.currentUser?.uid)
                 .collection('MedicineDetails')
                 .snapshots(),
             builder:

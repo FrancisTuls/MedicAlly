@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 
-class AddSchedAppBar extends StatelessWidget with PreferredSizeWidget {
+class AddSchedAppBar extends StatelessWidget implements PreferredSizeWidget {
   const AddSchedAppBar({
     super.key,
   });
