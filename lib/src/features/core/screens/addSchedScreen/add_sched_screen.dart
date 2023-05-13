@@ -32,10 +32,10 @@ class AddSched extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const AddSchedCard(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               //const AddSchedCardTime(),
               const AddSchedCardSched(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               FilledButton.tonal(
                 onPressed: () {
                   _addMedReminderToDB(context);
@@ -94,7 +94,7 @@ class AddSched extends StatelessWidget {
 
     if (currentUser != null) {
       final userDocRef = usersCollection.doc(currentUser.uid);
-      userDocRef
+      await userDocRef
           .collection('MedicineReminder')
           .doc(selectedContainer.toString())
           .set(med.toJson());

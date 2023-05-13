@@ -52,6 +52,8 @@ const String mOTPTSubtitle = "Enter the verification code sent at";
 //--Dashboard Screen
 const String mAddMedicine = "Add Medicine";
 const String mDashStatusText = "Let's check your schedule for today.";
+const String mModalEdit = "Edit Medication";
+const String mModalDelete = "Delete Medication";
 
 //--Add Medication Screen
 const String mMedication = "Medication";

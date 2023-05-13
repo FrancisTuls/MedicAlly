@@ -20,6 +20,7 @@ const String mOtpScreen =
 const String mPill = "assets/images/dashboard/dash-pill.png";
 const String mNoSchedule = "assets/images/dashboard/dash-nomed.png";
 const String mNoMedicine = "assets/images/dashboard/dash-empty-med.png";
+const String mNoMedicinealt = "assets/images/dashboard/dash-nomed.png";
 
 // --Setup Device Images
 const String mSetupDevice1 =

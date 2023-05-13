@@ -2,7 +2,10 @@ import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 
 class CalendarContainer extends StatefulWidget {
-  const CalendarContainer({Key? key}) : super(key: key);
+  final Function(DateTime) onDateSelected;
+
+  const CalendarContainer({Key? key, required this.onDateSelected})
+      : super(key: key);
 
   @override
   _CalendarContainerState createState() => _CalendarContainerState();
