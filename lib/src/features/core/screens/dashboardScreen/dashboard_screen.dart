@@ -49,24 +49,28 @@ class _DashboardState extends State<Dashboard> {
 
     final isDarkMode = brightness == Brightness.dark;
 
-    return Scaffold(
-      appBar: const DashAppbar(),
-      body: Column(
-        children: [
-          const DashAddmed(),
-          CalendarContainer(onDateSelected: _onDateSelected),
-          const SizedBox(height: 20),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Consumer<DateProvider>(
-                builder: (context, dateProvider, child) =>
-                    _showMedSched(dateProvider.selectedDate),
+    return ChangeNotifierProvider<DateProvider>(
+      create: (context) =>
+          DateProvider(), // Provide an instance of DateProvider
+      child: Scaffold(
+        appBar: const DashAppbar(),
+        body: Column(
+          children: [
+            const DashAddmed(),
+            CalendarContainer(onDateSelected: _onDateSelected),
+            const SizedBox(height: 20),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Consumer<DateProvider>(
+                  builder: (context, dateProvider, child) =>
+                      _showMedSched(dateProvider.selectedDate),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
+        floatingActionButton: const AddMedFloating(),
       ),
-      floatingActionButton: const AddMedFloating(),
     );
   }
 
@@ -80,13 +84,18 @@ class _DashboardState extends State<Dashboard> {
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             final docs = snapshot.data!.docs;
-            if (docs.isNotEmpty) {
+            final filteredDocs = docs.where((doc) {
+              final startDate = doc.get('startDate');
+              return startDate == DateFormat.yMd().format(selectedDate);
+            }).toList();
+
+            if (filteredDocs.isNotEmpty) {
               return ListView.separated(
                 shrinkWrap: true,
-                itemCount: docs.length,
+                itemCount: filteredDocs.length,
                 separatorBuilder: (context, index) => const SizedBox(height: 5),
                 itemBuilder: (context, index) {
-                  final doc = docs[index];
+                  final doc = filteredDocs[index];
                   final medName = doc.exists ? doc.get('medName') : '';
                   final remTime = doc.exists ? doc.get('remTime') : '';
                   final completed =
@@ -95,63 +104,30 @@ class _DashboardState extends State<Dashboard> {
                   final startDate = doc.exists ? doc.get('startDate') : '';
                   final dosage = doc.exists ? doc.get('dosage').toString() : '';
 
-                  /*if (remTime == null || remTime.isEmpty) {
-                    return Container();
-                  } else {
-                    return AnimationConfiguration.staggeredList(
-                        position: index,
-                        child: SlideAnimation(
-                          child: FadeInAnimation(
-                              child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  //deleteReminder(doc.id);
-                                  _showBottomSheet(context, doc.id);
-                                },
-                                child: MedTile(
-                                  medName: medName,
-                                  remTime: remTime,
-                                  completed: completed,
-                                  container: container,
-                                  date: startDate,
-                                  dosage: dosage,
-                                ),
-                              )
-                            ],
-                          )),
-                        ));
-                  }*/
-
-                  if (startDate == selectedDate) {
-                    return AnimationConfiguration.staggeredList(
-                        position: index,
-                        child: SlideAnimation(
-                          child: FadeInAnimation(
-                              child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  //deleteReminder(doc.id);
-                                  _showBottomSheet(context, doc.id);
-                                },
-                                child: MedTile(
-                                  medName: medName,
-                                  remTime: remTime,
-                                  completed: completed,
-                                  container: int.parse(container),
-                                  date: startDate,
-                                  dosage: dosage,
-                                ),
-                              )
-                            ],
-                          )),
-                        ));
-                  } else if (remTime == null || remTime.isEmpty) {
-                    return Container();
-                  } else {
-                    return Container();
-                  }
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    child: SlideAnimation(
+                      child: FadeInAnimation(
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                _showBottomSheet(context, doc.id);
+                              },
+                              child: MedTile(
+                                medName: medName,
+                                remTime: remTime,
+                                completed: completed,
+                                container: container,
+                                date: startDate,
+                                dosage: dosage,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
                 },
               );
             } else {

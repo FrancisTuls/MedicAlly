@@ -108,7 +108,8 @@ class SelectedDateProvider with ChangeNotifier {
 }
 
 class DateProvider extends ChangeNotifier {
-  late DateTime _selectedDate;
+  late DateTime _selectedDate =
+      DateTime.now(); // Initialize _selectedDate with a default value
 
   DateTime get selectedDate => _selectedDate;
 
