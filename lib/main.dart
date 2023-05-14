@@ -49,6 +49,9 @@ void main() {
       ChangeNotifierProvider(
         create: (_) => DateProvider(),
       ),
+      ChangeNotifierProvider<SelectedEndDateProvider>(
+        create: (_) => SelectedEndDateProvider(),
+      ),
     ],
     child: const App(),
   ));

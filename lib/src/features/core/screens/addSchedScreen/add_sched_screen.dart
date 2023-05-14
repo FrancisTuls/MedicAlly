@@ -57,6 +57,9 @@ class AddSched extends StatelessWidget {
     final selectedDateProvider =
         Provider.of<SelectedDateProvider>(context, listen: false);
     final selectedDate = selectedDateProvider.selectedDate;
+    final selectedEndDateProvider =
+        Provider.of<SelectedEndDateProvider>(context, listen: false);
+    final selectedEndDate = selectedEndDateProvider.selectedEndDate;
     final selectedTimeProvider =
         Provider.of<SelectedTimeProvider>(context, listen: false);
     final selectedTime = selectedTimeProvider.selectedTime;
@@ -74,6 +77,7 @@ class AddSched extends StatelessWidget {
       'dosage': dosage,
       'isCompleted': 0,
       'startDate': DateFormat.yMd().format(selectedDate),
+      'endDate': DateFormat.yMd().format(selectedEndDate!),
       'remTime': selectedTime.toString(),
     };
 
