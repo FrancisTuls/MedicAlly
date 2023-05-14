@@ -5,6 +5,7 @@ class MedReminder {
   int? dosage;
   int? isCompleted;
   String? startDate;
+  String? endDate;
   String? remTime;
   //int? container;
 
@@ -15,6 +16,7 @@ class MedReminder {
     this.dosage,
     this.isCompleted,
     this.startDate,
+    this.endDate,
     this.remTime,
     /*this.container*/
   });
@@ -26,6 +28,7 @@ class MedReminder {
     dosage = json["dosage"];
     isCompleted = json["isCompleted"];
     startDate = json["startDate"];
+    endDate = json["endDate"];
     remTime = json["remTime"];
     //container = json["container"];
   }
@@ -37,6 +40,7 @@ class MedReminder {
     data['dosage'] = dosage;
     data['isCompleted'] = isCompleted;
     data['startDate'] = startDate;
+    data['endDate'] = endDate;
     data['remTime'] = remTime;
     //data['container'] = container;
     data['stock'] = stock;

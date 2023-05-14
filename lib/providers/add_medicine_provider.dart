@@ -107,6 +107,15 @@ class SelectedDateProvider with ChangeNotifier {
   }
 }
 
+class SelectedEndDateProvider with ChangeNotifier {
+  DateTime? _selectedEndDate;
+  DateTime? get selectedEndDate => _selectedEndDate;
+  set selectedEndDate(DateTime? value) {
+    _selectedEndDate = value;
+    notifyListeners();
+  }
+}
+
 class DateProvider extends ChangeNotifier {
   late DateTime _selectedDate =
       DateTime.now(); // Initialize _selectedDate with a default value

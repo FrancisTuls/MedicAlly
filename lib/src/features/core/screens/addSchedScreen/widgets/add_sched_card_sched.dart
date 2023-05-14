@@ -22,6 +22,7 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
   String? _time;
 
   String _startDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
+  String _endDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
   //int? _numberOfDays;
   TimeOfDay _reminderTime = const TimeOfDay(hour: 8, minute: 0);
   //List<bool> _daysSelected = List.generate(7, (index) => false);
@@ -29,6 +30,7 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
   Future<void> _selectDate(BuildContext context) async {
     final selectedDateProvider =
         Provider.of<SelectedDateProvider>(context, listen: false);
+
     final DateTime? selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -39,6 +41,24 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
       setState(() {
         _startDate = DateFormat('MM/dd/yyyy').format(selectedDate);
         selectedDateProvider.selectedDate = selectedDate;
+      });
+    }
+  }
+
+  Future<void> _selectEndDate(BuildContext context) async {
+    final selectedEndDateProvider =
+        Provider.of<SelectedEndDateProvider>(context, listen: false);
+
+    final DateTime? selectedEndDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+    );
+    if (selectedEndDate != null) {
+      setState(() {
+        _endDate = DateFormat('MM/dd/yyyy').format(selectedEndDate);
+        selectedEndDateProvider.selectedEndDate = selectedEndDate;
       });
     }
   }
@@ -132,6 +152,20 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
               OutlinedButton(
                 onPressed: () => _selectDate(context),
                 child: Text(_startDate),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              const Text(
+                mEndDate,
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(width: 10),
+              OutlinedButton(
+                onPressed: () => _selectEndDate(context),
+                child: Text(_endDate),
               ),
             ],
           ),
