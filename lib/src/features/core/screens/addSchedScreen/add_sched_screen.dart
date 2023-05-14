@@ -69,22 +69,15 @@ class AddSched extends StatelessWidget {
         Provider.of<SelectedCircleProvider>(context, listen: false)
             .selectedCircle;
 
-    /*final medDetailsDoc = await FirebaseFirestore.instance
-        .collection('MedicineDetails')
-        .doc(selectedContainer.toString())
-        .get();
-    final medName = medDetailsDoc['medName'];
-    final stock = medDetailsDoc['stock'];
-    final container = medDetailsDoc['container'];*/
+    // Create a map of the new fields to be added
+    final newFields = {
+      'dosage': dosage,
+      'isCompleted': 0,
+      'startDate': DateFormat.yMd().format(selectedDate),
+      'remTime': selectedTime.toString(),
+    };
 
-    final med = MedReminder(
-      dosage: dosage,
-      isCompleted: 0,
-      startDate:
-          DateFormat.yMd().format(selectedDate) /*selectedDate.toString()*/,
-      remTime: selectedTime.toString(),
-    );
-
-    medReminderCollection.doc(selectedContainer.toString()).set(med.toJson());
+    // Update the document with the new fields
+    medReminderCollection.doc(selectedContainer.toString()).update(newFields);
   }
 }

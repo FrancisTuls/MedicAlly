@@ -32,7 +32,7 @@ class ListMedicineNames extends ChangeNotifier {
 
   Future<void> fetchContainer() async {
     final snapshotContainer =
-        await FirebaseFirestore.instance.collection('MedicineDetails').get();
+        await FirebaseFirestore.instance.collection('MedicineReminder').get();
     final containerNum = snapshotContainer.docs
         .map((doc) => doc.data()['container'] as String)
         .toList();

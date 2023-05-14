@@ -139,9 +139,9 @@ class _AddMedicineState extends State<AddMedicine> {
         Provider.of<AddMedicineStock>(context, listen: false).selectedNumber;
 
     final medReminder = MedReminder(
+      id: selectedContainer,
       medName: _medicineNameController.text,
       stock: stock!,
-      //container: selectedContainer,
     );
     medReminderCollection
         .doc(selectedContainer.toString())
