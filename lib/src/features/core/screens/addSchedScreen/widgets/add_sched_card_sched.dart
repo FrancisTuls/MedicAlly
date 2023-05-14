@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medic_ally/providers/add_medicine_provider.dart';
 import 'package:medic_ally/src/constants/app_constants.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/core/screens/addSchedScreen/widgets/add_sched_week_modal.dart';
+import 'package:provider/provider.dart';
 
 class AddSchedCardSched extends StatefulWidget {
   const AddSchedCardSched({super.key});
@@ -12,17 +14,21 @@ class AddSchedCardSched extends StatefulWidget {
 }
 
 class _AddSchedCardSchedState extends State<AddSchedCardSched> {
-  bool _isContinuous = true;
+  /*bool _isContinuous = true;
   bool _isSpecificDays = false;
   bool _isRemindEvery = false;
-  bool _isVisible = true;
+  bool _isVisible = true;*/
+
+  String? _time;
 
   String _startDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
-  int? _numberOfDays;
-  TimeOfDay _reminderTime = TimeOfDay(hour: 8, minute: 0);
-  List<bool> _daysSelected = List.generate(7, (index) => false);
+  //int? _numberOfDays;
+  TimeOfDay _reminderTime = const TimeOfDay(hour: 8, minute: 0);
+  //List<bool> _daysSelected = List.generate(7, (index) => false);
 
   Future<void> _selectDate(BuildContext context) async {
+    final selectedDateProvider =
+        Provider.of<SelectedDateProvider>(context, listen: false);
     final DateTime? selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -32,14 +38,14 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
     if (selectedDate != null) {
       setState(() {
         _startDate = DateFormat('MM/dd/yyyy').format(selectedDate);
-        print(_startDate);
+        selectedDateProvider.selectedDate = selectedDate;
       });
-    } else {
-      print("Error");
     }
   }
 
   Future<void> _selectTime(BuildContext context) async {
+    final selectedTimeProvider =
+        Provider.of<SelectedTimeProvider>(context, listen: false);
     final TimeOfDay? selectedTime = await showTimePicker(
       context: context,
       initialTime: _reminderTime,
@@ -47,11 +53,14 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
     if (selectedTime != null) {
       setState(() {
         _reminderTime = selectedTime;
+        String period = selectedTime.period == DayPeriod.am ? 'AM' : 'PM';
+        _time = '${selectedTime.hour}:${selectedTime.minute} $period';
+        selectedTimeProvider.selectedTime = _time.toString();
       });
     }
   }
 
-  List<DateTime> _selectedDates = [];
+  /*List<DateTime> _selectedDates = [];
 
   Future<void> _selectDays(BuildContext context) async {
     final List<bool>? result = await showModalBottomSheet<List<bool>>(
@@ -68,9 +77,9 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
         }
       });
     }
-  }
+  }*/
 
-  List<DateTime> _getSelectedDates() {
+  /*List<DateTime> _getSelectedDates() {
     final List<DateTime> selectedDates = [];
     final DateTime startDate = DateFormat('MM/dd/yyyy').parse(_startDate);
     final int startWeekday = startDate.weekday;
@@ -81,7 +90,7 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
       }
     }
     return selectedDates;
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +111,20 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
           Row(
             children: [
               const Text(
+                'Time: ',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(width: 10),
+              OutlinedButton(
+                onPressed: () => _selectTime(context),
+                child: Text(_reminderTime.format(context)),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              const Text(
                 mStartDate,
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -112,7 +135,8 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
               ),
             ],
           ),
-          const SizedBox(height: 20),
+
+          /*const SizedBox(height: 20),
           const Text(
             mDays,
             style: TextStyle(
@@ -166,7 +190,7 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
                 ),
               ),
             ],
-          ),
+          ),*/
         ],
       ),
     ));

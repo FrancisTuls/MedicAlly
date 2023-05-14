@@ -23,18 +23,18 @@ class SetupDeviceHeader extends StatelessWidget {
           mStep1,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
-              color: Color.fromARGB(167, 0, 0, 0)),
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+          ),
         ),
         const Padding(padding: EdgeInsets.fromLTRB(0, 5, 0, 0)),
         const Text(
           mStep1_1,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-              color: Color.fromARGB(140, 0, 0, 0)),
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
         ),
       ],
     );

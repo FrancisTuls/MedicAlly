@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
@@ -15,11 +16,10 @@ class ConnectedFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final shape = StadiumBorder();
     return Column(
       children: [
         GestureDetector(
-          onTap: () => context.goNamed("bottom_navbar"),
+          onTap: () => {Get.toNamed('/signup')},
           child: Container(
             height: 50,
             width: 350,
@@ -33,7 +33,7 @@ class ConnectedFooter extends StatelessWidget {
             ),
             child: const Center(
               child: Text(
-                'Continue',
+                mContinue,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -47,7 +47,6 @@ class ConnectedFooter extends StatelessWidget {
             style: TextButton.styleFrom(
               textStyle:
                   const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              foregroundColor: Color.fromARGB(156, 0, 0, 0),
             ),
             child: const Text('Get Help'),
             onPressed: () {}),

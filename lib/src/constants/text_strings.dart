@@ -52,6 +52,8 @@ const String mOTPTSubtitle = "Enter the verification code sent at";
 //--Dashboard Screen
 const String mAddMedicine = "Add Medicine";
 const String mDashStatusText = "Let's check your schedule for today.";
+const String mModalEdit = "Edit Medication";
+const String mModalDelete = "Delete Medication";
 
 //--Add Medication Screen
 const String mMedication = "Medication";
@@ -100,15 +102,28 @@ const String mJoinedDate = "30 April 2023";
 const String mAddMed = "Add Medicine";
 
 //--Setup Device Screen
-const String mStep1 = "Step 1: Setup Device";
+const String mTurnOnWifi = "STEP 1: Turn on Wifi on this device";
+const String mTurnOnDispenser = "STEP 2: Turn on MedicAlly dispenser";
+const String mStep1 = "Setup Device";
 const String mStep1_1 = "Is your MedicAlly Device turned on?";
 const String mSearch1 = "Searching for Device";
 const String mSearch1_1 =
-    "Make sure your Medicine Dispenser is on while MedicAlly app is searching for a device.";
+    "1. Make sure your Medicine Dispenser is on while MedicAlly app is searching for a device.";
 const String mSearch1_2 =
-    "If there's a problem connecting with the device, please reboot the MedicAlly device.";
+    "2. If there's a problem connecting with the device, please reboot the MedicAlly device.";
 const String mDeviceFound1 = 'Device Found';
 const String mDeviceFound1_1 = 'Enter Your Device ID Number';
 const String mIDnumber = 'ID Number';
 const String mEnterIDnumber = 'Enter ID Number';
 const String mConnected = 'Connected';
+const String mContinueSetup = 'YES, Continue Setup';
+const String mNotYet = 'NO, Not Yet';
+const String mSubmit = 'Submit';
+const String mGetHelp = 'Get Help';
+const String mContinue = 'Continue';
+const String mConnectWifi = 'Turn on Wifi';
+
+//-- Medicine Screen
+const String mMedicines = 'Medicines';
+const String mMedicineName = 'Medicine Name';
+const String mInStock = 'In Stock';

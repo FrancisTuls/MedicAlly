@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:medic_ally/providers/add_medicine_provider.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
+import 'package:provider/provider.dart';
 
 class AddMedicineCardStock extends StatefulWidget {
   const AddMedicineCardStock({super.key});
@@ -35,19 +37,19 @@ class _AddMedicineCardStockState extends State<AddMedicineCardStock> {
               ),
             ),
             const SizedBox(height: 20),
-            DropdownButtonFormField<int>(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                filled: false,
-                labelText: 'Select Stock',
+            Consumer<AddMedicineStock>(
+              builder: (context, stock, _) => DropdownButtonFormField<int>(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: false,
+                  labelText: 'Select Stock',
+                ),
+                value: stock.selectedNumber,
+                onChanged: (int? number) {
+                  stock.selectedNumber = number;
+                },
+                items: numberEntries,
               ),
-              value: selectedNumber,
-              onChanged: (int? number) {
-                setState(() {
-                  selectedNumber = number;
-                });
-              },
-              items: numberEntries,
             ),
           ],
         ),
