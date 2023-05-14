@@ -32,6 +32,23 @@ class MedTile extends StatelessWidget {
           color: _getBGClr(container),
         ),
         child: Row(children: [
+          RotatedBox(
+            quarterTurns: 4,
+            child: Text(
+              "$container",
+              style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            height: 60,
+            width: 0.5,
+            color: Colors.black,
+          ),
+          SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,18 +69,21 @@ class MedTile extends StatelessWidget {
                     const Icon(
                       Icons.access_time_rounded,
                       color: Colors.black,
-                      size: 18,
+                      size: 20,
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      "$remTime - $date",
-                      style: const TextStyle(fontSize: 13, color: Colors.black),
+                      "$remTime",
+                      style: const TextStyle(
+                          fontSize: 13,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  dosage,
+                  'Dosage:  $dosage',
                   style: const TextStyle(fontSize: 15, color: Colors.black),
                 ),
               ],
