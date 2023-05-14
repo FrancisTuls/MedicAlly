@@ -60,11 +60,9 @@ class _DashboardState extends State<Dashboard> {
             CalendarContainer(onDateSelected: _onDateSelected),
             const SizedBox(height: 20),
             Expanded(
-              child: SingleChildScrollView(
-                child: Consumer<DateProvider>(
-                  builder: (context, dateProvider, child) =>
-                      _showMedSched(dateProvider.selectedDate),
-                ),
+              child: Consumer<DateProvider>(
+                builder: (context, dateProvider, child) =>
+                    _showMedSched(dateProvider.selectedDate),
               ),
             ),
           ],
@@ -75,84 +73,86 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Widget _showMedSched(DateTime selectedDate) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('MedicineReminder')
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
-            final docs = snapshot.data!.docs;
-            final filteredDocs = docs.where((doc) {
-              final startDate = doc.get('startDate');
-              return startDate == DateFormat.yMd().format(selectedDate);
-            }).toList();
+    final DateTime startDate = selectedDate.subtract(const Duration(days: 1));
+    final DateTime endDate = selectedDate.add(const Duration(days: 1));
 
-            if (filteredDocs.isNotEmpty) {
-              return ListView.separated(
-                shrinkWrap: true,
-                itemCount: filteredDocs.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 5),
-                itemBuilder: (context, index) {
-                  final doc = filteredDocs[index];
-                  final medName = doc.exists ? doc.get('medName') : '';
-                  final remTime = doc.exists ? doc.get('remTime') : '';
-                  final completed =
-                      doc.exists ? doc.get('isCompleted').toString() : '';
-                  final container = doc.get('id');
-                  final startDate = doc.exists ? doc.get('startDate') : '';
-                  final dosage = doc.exists ? doc.get('dosage').toString() : '';
+    return StreamBuilder<QuerySnapshot>(
+      stream:
+          FirebaseFirestore.instance.collection('MedicineReminder').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData && snapshot.data != null) {
+          final docs = snapshot.data!.docs;
+          final filteredDocs = docs.where((doc) {
+            final startDateStr = doc.get('startDate');
+            final endDateStr = doc.get('endDate');
+            final startDateFormatted = DateFormat.yMd().parse(startDateStr);
+            final endDateFormatted = DateFormat.yMd().parse(endDateStr);
+            return startDateFormatted.isBefore(endDate) &&
+                endDateFormatted.isAfter(startDate);
+          }).toList();
 
-                  return AnimationConfiguration.staggeredList(
-                    position: index,
-                    child: SlideAnimation(
-                      child: FadeInAnimation(
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                _showBottomSheet(context, doc.id);
-                              },
-                              child: MedTile(
-                                medName: medName,
-                                remTime: remTime,
-                                completed: completed,
-                                container: container,
-                                date: startDate,
-                                dosage: dosage,
-                              ),
+          if (filteredDocs.isNotEmpty) {
+            return ListView.builder(
+              shrinkWrap: true,
+              itemCount: filteredDocs.length,
+              itemBuilder: (context, index) {
+                final doc = filteredDocs[index];
+                final medName = doc.exists ? doc.get('medName') : '';
+                final remTime = doc.exists ? doc.get('remTime') : '';
+                final completed =
+                    doc.exists ? doc.get('isCompleted').toString() : '';
+                final container = doc.get('id');
+                final startDate = doc.exists ? doc.get('startDate') : '';
+                final dosage = doc.exists ? doc.get('dosage').toString() : '';
+
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _showBottomSheet(context, doc.id);
+                            },
+                            child: MedTile(
+                              medName: medName,
+                              remTime: remTime,
+                              completed: completed,
+                              container: container,
+                              date: startDate,
+                              dosage: dosage,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                },
-              );
-            } else {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    mNoMedicinealt,
-                    height: 200,
-                    width: 200,
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'No Medicines Added Yet.',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              );
-            }
+                );
+              },
+            );
           } else {
-            return const Text('Loading...');
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  mNoMedicinealt,
+                  height: 200,
+                  width: 200,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'No Medicines Added Yet.',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ],
+            );
           }
-        },
-      ),
+        } else {
+          return const Text('Loading...');
+        }
+      },
     );
   }
 
