@@ -129,29 +129,23 @@ class _AddMedicineState extends State<AddMedicine> {
     }
   }
 
-  void _addMedDetailsToDB() {
-    final CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('Users');
+  _addMedDetailsToDB() {
+    final CollectionReference medReminderCollection =
+        FirebaseFirestore.instance.collection('MedicineReminder');
     final selectedContainer =
         Provider.of<SelectedCircleProvider>(context, listen: false)
             .selectedCircle;
     final stock =
         Provider.of<AddMedicineStock>(context, listen: false).selectedNumber;
 
-    final medDetails = MedDetails(
+    final medReminder = MedReminder(
       medName: _medicineNameController.text,
       stock: stock!,
-      container: selectedContainer,
+      //container: selectedContainer,
     );
-
-    final currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      final userDocRef = usersCollection.doc(currentUser.uid);
-      userDocRef
-          .collection('MedicineDetails')
-          .doc(selectedContainer.toString())
-          .set(medDetails.toJson());
-    }
+    medReminderCollection
+        .doc(selectedContainer.toString())
+        .set(medReminder.toJson());
   }
 
   Widget _buildCircleAvatar(int index) {

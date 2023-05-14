@@ -1,22 +1,23 @@
 class MedReminder {
-  String? id;
+  int? id;
   String? medName;
   int? stock;
   int? dosage;
   int? isCompleted;
   String? startDate;
   String? remTime;
-  int? container;
+  //int? container;
 
-  MedReminder(
-      {this.id,
-      this.medName,
-      this.stock,
-      this.dosage,
-      this.isCompleted,
-      this.startDate,
-      this.remTime,
-      this.container});
+  MedReminder({
+    this.id,
+    this.medName,
+    this.stock,
+    this.dosage,
+    this.isCompleted,
+    this.startDate,
+    this.remTime,
+    /*this.container*/
+  });
 
   MedReminder.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -26,7 +27,7 @@ class MedReminder {
     isCompleted = json["isCompleted"];
     startDate = json["startDate"];
     remTime = json["remTime"];
-    container = json["container"];
+    //container = json["container"];
   }
 
   Map<String, dynamic> toJson() {
@@ -37,7 +38,8 @@ class MedReminder {
     data['isCompleted'] = isCompleted;
     data['startDate'] = startDate;
     data['remTime'] = remTime;
-    data['container'] = container;
+    //data['container'] = container;
+    data['stock'] = stock;
     return data;
   }
 }

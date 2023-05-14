@@ -53,15 +53,15 @@ class AddSched extends StatelessWidget {
     );
   }
 
-  void _addMedReminderToDB(BuildContext context) async {
+  _addMedReminderToDB(BuildContext context) async {
     final selectedDateProvider =
         Provider.of<SelectedDateProvider>(context, listen: false);
     final selectedDate = selectedDateProvider.selectedDate;
     final selectedTimeProvider =
         Provider.of<SelectedTimeProvider>(context, listen: false);
     final selectedTime = selectedTimeProvider.selectedTime;
-    final CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('Users');
+    final CollectionReference medReminderCollection =
+        FirebaseFirestore.instance.collection('MedicineReminder');
     final dosage =
         Provider.of<SelectedDosage>(context, listen: false).selectedNumber;
 
@@ -69,35 +69,22 @@ class AddSched extends StatelessWidget {
         Provider.of<SelectedCircleProvider>(context, listen: false)
             .selectedCircle;
 
-    final currentUser = FirebaseAuth.instance.currentUser;
-    final medDetailsDoc = await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(currentUser?.uid)
+    /*final medDetailsDoc = await FirebaseFirestore.instance
         .collection('MedicineDetails')
         .doc(selectedContainer.toString())
         .get();
     final medName = medDetailsDoc['medName'];
     final stock = medDetailsDoc['stock'];
-    final container = medDetailsDoc['container'];
+    final container = medDetailsDoc['container'];*/
 
     final med = MedReminder(
-      id: null,
-      medName: medName,
-      stock: stock,
       dosage: dosage,
       isCompleted: 0,
       startDate:
           DateFormat.yMd().format(selectedDate) /*selectedDate.toString()*/,
       remTime: selectedTime.toString(),
-      container: container,
     );
 
-    if (currentUser != null) {
-      final userDocRef = usersCollection.doc(currentUser.uid);
-      await userDocRef
-          .collection('MedicineReminder')
-          .doc(selectedContainer.toString())
-          .set(med.toJson());
-    }
+    medReminderCollection.doc(selectedContainer.toString()).set(med.toJson());
   }
 }

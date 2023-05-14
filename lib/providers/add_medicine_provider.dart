@@ -22,33 +22,21 @@ class ListMedicineNames extends ChangeNotifier {
   String? get selectedMedicine => _selectedMedicine;
 
   Future<void> fetchMedicineNames() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('Users')
-          .doc(currentUser.uid)
-          .collection('MedicineDetails')
-          .get();
-      final medicineNames =
-          snapshot.docs.map((doc) => doc.data()['medName'] as String).toList();
-      _medicineNames = medicineNames;
-      notifyListeners();
-    }
+    final snapshot =
+        await FirebaseFirestore.instance.collection('MedicineReminder').get();
+    final medicineNames =
+        snapshot.docs.map((doc) => doc.data()['medName'] as String).toList();
+    _medicineNames = medicineNames;
+    notifyListeners();
   }
 
   Future<void> fetchContainer() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      final snapshotContainer = await FirebaseFirestore.instance
-          .collection('Users')
-          .doc(currentUser.uid)
-          .collection('MedicineDetails')
-          .get();
-      final containerNum = snapshotContainer.docs
-          .map((doc) => doc.data()['container'] as String)
-          .toList();
-      _containerNum = containerNum;
-    }
+    final snapshotContainer =
+        await FirebaseFirestore.instance.collection('MedicineDetails').get();
+    final containerNum = snapshotContainer.docs
+        .map((doc) => doc.data()['container'] as String)
+        .toList();
+    _containerNum = containerNum;
   }
 
   void setSelectedMedicine(String? value) {
@@ -115,6 +103,17 @@ class SelectedDateProvider with ChangeNotifier {
 
   set selectedDate(DateTime selectedDate) {
     _selectedDate = selectedDate;
+    notifyListeners();
+  }
+}
+
+class DateProvider extends ChangeNotifier {
+  late DateTime _selectedDate;
+
+  DateTime get selectedDate => _selectedDate;
+
+  void setSelectedDate(DateTime date) {
+    _selectedDate = date;
     notifyListeners();
   }
 }

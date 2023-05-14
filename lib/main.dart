@@ -46,6 +46,9 @@ void main() {
       ChangeNotifierProvider(
         create: (_) => SelectedDateProvider(),
       ),
+      ChangeNotifierProvider(
+        create: (_) => DateProvider(),
+      ),
     ],
     child: const App(),
   ));

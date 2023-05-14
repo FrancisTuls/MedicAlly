@@ -48,9 +48,7 @@ class MedicineStockCard extends StatelessWidget {
           const SizedBox(height: 20),
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
-                .collection('Users')
-                .doc(FirebaseAuth.instance.currentUser?.uid)
-                .collection('MedicineDetails')
+                .collection('MedicineReminder')
                 .snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

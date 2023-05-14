@@ -49,7 +49,7 @@ class MedTile extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.access_time_rounded,
                       color: Colors.black,
                       size: 18,

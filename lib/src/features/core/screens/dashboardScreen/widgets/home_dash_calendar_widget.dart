@@ -1,5 +1,7 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:medic_ally/providers/add_medicine_provider.dart';
+import 'package:provider/provider.dart';
 
 class CalendarContainer extends StatefulWidget {
   final Function(DateTime) onDateSelected;
@@ -34,7 +36,8 @@ class _CalendarContainerState extends State<CalendarContainer> {
         initialDate: _selectedDate,
         firstDate: DateTime.now(),
         lastDate: DateTime.now().add(const Duration(days: 365 * 4)),
-        onDateSelected: (date) => setState(() => _selectedDate = date),
+        onDateSelected: (date) =>
+            context.read<DateProvider>().setSelectedDate(date),
         leftMargin: 20,
         monthColor: isDarkMode ? Colors.white : Colors.black,
         dayColor: isDarkMode

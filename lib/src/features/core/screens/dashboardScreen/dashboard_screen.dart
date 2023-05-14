@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:medic_ally/providers/add_medicine_provider.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/core/controllers/medicine_reminder.dart';
@@ -11,6 +12,7 @@ import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/hom
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/home_dash_appbar_widget.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/med_rem_tile.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/home_dash_calendar_widget.dart';
 
@@ -56,7 +58,10 @@ class _DashboardState extends State<Dashboard> {
           const SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(
-              child: _showMedSched(),
+              child: Consumer<DateProvider>(
+                builder: (context, dateProvider, child) =>
+                    _showMedSched(dateProvider.selectedDate),
+              ),
             ),
           ),
         ],
@@ -65,13 +70,11 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget _showMedSched() {
+  Widget _showMedSched(DateTime selectedDate) {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('Users')
-            .doc(FirebaseAuth.instance.currentUser?.uid)
             .collection('MedicineReminder')
             .snapshots(),
         builder: (context, snapshot) {
@@ -88,12 +91,11 @@ class _DashboardState extends State<Dashboard> {
                   final remTime = doc.exists ? doc.get('remTime') : '';
                   final completed =
                       doc.exists ? doc.get('isCompleted').toString() : '';
-                  final container =
-                      doc.exists ? doc.get('container').toString() : '';
+                  final container = doc.get('id');
                   final startDate = doc.exists ? doc.get('startDate') : '';
                   final dosage = doc.exists ? doc.get('dosage').toString() : '';
 
-                  if (remTime == null || remTime.isEmpty) {
+                  /*if (remTime == null || remTime.isEmpty) {
                     return Container();
                   } else {
                     return AnimationConfiguration.staggeredList(
@@ -111,7 +113,7 @@ class _DashboardState extends State<Dashboard> {
                                   medName: medName,
                                   remTime: remTime,
                                   completed: completed,
-                                  container: int.parse(container),
+                                  container: container,
                                   date: startDate,
                                   dosage: dosage,
                                 ),
@@ -119,9 +121,9 @@ class _DashboardState extends State<Dashboard> {
                             ],
                           )),
                         ));
-                  }
+                  }*/
 
-                  /*if (startDate == DateFormat.yMd().format(_selectedDate)) {
+                  if (startDate == selectedDate) {
                     return AnimationConfiguration.staggeredList(
                         position: index,
                         child: SlideAnimation(
@@ -149,7 +151,7 @@ class _DashboardState extends State<Dashboard> {
                     return Container();
                   } else {
                     return Container();
-                  }*/
+                  }
                 },
               );
             } else {
