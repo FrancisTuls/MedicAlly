@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/sizes_strings.dart';
 import 'package:medic_ally/src/features/core/screens/espConnectionScreen/widgets/setup1_body_widget.dart';
 import 'package:medic_ally/src/features/core/screens/espConnectionScreen/widgets/setup1_footer_widget.dart';
@@ -9,9 +11,11 @@ class EspConnection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shape = StadiumBorder();
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(children: [
+      backgroundColor: Color.fromARGB(255, 250, 247, 247),
+      body: Column(children: <Widget>[
         Expanded(
             flex: 1,
             child: Container(
@@ -34,7 +38,7 @@ class EspConnection extends StatelessWidget {
         Expanded(
           flex: 2,
           child: Container(
-            padding: const EdgeInsets.all(35),
+            padding: EdgeInsets.all(35),
             child: Center(
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,7 +49,7 @@ class EspConnection extends StatelessWidget {
         Expanded(
             flex: 2,
             child: Container(
-              padding: const EdgeInsets.all(30),
+              padding: EdgeInsets.all(30),
               alignment: Alignment.center,
               child: Center(
                   child: Column(

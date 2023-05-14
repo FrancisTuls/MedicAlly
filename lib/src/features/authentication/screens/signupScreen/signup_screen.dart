@@ -24,10 +24,9 @@ class SignUpScreen extends StatelessWidget {
                 title: mSignupTitle,
                 subTitle: mSignupSubtitle),
             const SignUpFormWidget(),
-            //Google Sign Sign In Button
             Column(
               children: [
-                /*const Text(
+                const Text(
                   "or continue with",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -43,7 +42,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 5,
-                ),*/
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

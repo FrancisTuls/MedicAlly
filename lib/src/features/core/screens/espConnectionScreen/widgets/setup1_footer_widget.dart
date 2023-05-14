@@ -1,13 +1,11 @@
 import 'dart:ui';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 
-class SetupDeviceFooter extends StatefulWidget {
+class SetupDeviceFooter extends StatelessWidget {
   const SetupDeviceFooter({
     super.key,
     required this.size,
@@ -16,63 +14,28 @@ class SetupDeviceFooter extends StatefulWidget {
   final Size size;
 
   @override
-  State<SetupDeviceFooter> createState() => _SetupDeviceFooterState();
-}
-
-class _SetupDeviceFooterState extends State<SetupDeviceFooter> {
-  bool _isWifiEnabled = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkWifiStatus();
-    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      _checkWifiStatus();
-    });
-  }
-
-  Future<void> _checkWifiStatus() async {
-    final connectivityResult = await Connectivity().checkConnectivity();
-
-    if (connectivityResult == ConnectivityResult.wifi) {
-      setState(() {
-        _isWifiEnabled = true;
-      });
-    } else {
-      setState(() {
-        _isWifiEnabled = false;
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final shape = StadiumBorder();
     return Column(
       children: [
         GestureDetector(
-          onTap: _isWifiEnabled
-              ? () {
-                  Get.toNamed('/searching_screen');
-                }
-              : null,
+          onTap: () => context.goNamed("searching_connection_Screen"),
           child: Container(
             height: 50,
             width: 350,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: _isWifiEnabled
-                    ? [Colors.cyan, Colors.blue]
-                    : [Colors.grey, Colors.grey],
+                colors: [Colors.cyan, Colors.blue],
               ),
               borderRadius: BorderRadius.circular(25),
             ),
-            child: Center(
+            child: const Center(
               child: Text(
-                mContinueSetup,
+                'Yes, Continue Setup',
                 style: TextStyle(
-                  color: _isWifiEnabled ? Colors.white : Colors.grey,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -84,11 +47,10 @@ class _SetupDeviceFooterState extends State<SetupDeviceFooter> {
             style: TextButton.styleFrom(
               textStyle:
                   const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              foregroundColor: Color.fromARGB(156, 0, 0, 0),
             ),
-            child: const Text(mNotYet),
-            onPressed: () {
-              Get.back();
-            }),
+            child: const Text('No, Not Yet'),
+            onPressed: () {}),
       ],
     );
   }

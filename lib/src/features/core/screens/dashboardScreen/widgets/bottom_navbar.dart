@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medic_ally/src/features/core/screens/addSchedScreen/add_sched_screen.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/dashboard_screen.dart';
-import 'package:medic_ally/src/features/core/screens/medicineScreen/medicine_Screen.dart';
 import 'package:medic_ally/src/features/core/screens/profile/profile_screen.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -15,8 +14,10 @@ class _BottomNavbarState extends State<BottomNavbar> {
   int currentPageIndex = 0;
   final screens = [
     const Dashboard(),
-    const MedicineScreen(),
-    AddSched(),
+    const Center(
+      child: Text('Medicines', style: TextStyle(fontSize: 72)),
+    ),
+    const AddSched(),
     const ProfileScreen(),
   ];
 

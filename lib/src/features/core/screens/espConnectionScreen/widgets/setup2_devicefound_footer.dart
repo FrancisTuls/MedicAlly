@@ -1,5 +1,6 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
@@ -14,12 +15,11 @@ class DeviceFoundFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shape = StadiumBorder();
     return Column(
       children: [
         GestureDetector(
-          onTap: () {
-            Get.toNamed('/success_connection');
-          },
+          onTap: () => context.goNamed("connected_Screen"),
           child: Container(
             height: 50,
             width: 350,
@@ -33,7 +33,7 @@ class DeviceFoundFooter extends StatelessWidget {
             ),
             child: const Center(
               child: Text(
-                mSubmit,
+                'Submit',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -47,8 +47,9 @@ class DeviceFoundFooter extends StatelessWidget {
             style: TextButton.styleFrom(
               textStyle:
                   const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              foregroundColor: Color.fromARGB(156, 0, 0, 0),
             ),
-            child: const Text(mGetHelp),
+            child: const Text('Get Help'),
             onPressed: () {}),
       ],
     );

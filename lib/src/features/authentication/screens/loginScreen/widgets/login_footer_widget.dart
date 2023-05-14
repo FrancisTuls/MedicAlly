@@ -13,7 +13,7 @@ class LoginFooter extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        /*const Text(
+        const Text(
           'or continue with',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -24,7 +24,7 @@ class LoginFooter extends StatelessWidget {
           label: const Text(mSigninGoogle),
           style:
               OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
-        ),*/
+        ),
         const SizedBox(height: 5),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

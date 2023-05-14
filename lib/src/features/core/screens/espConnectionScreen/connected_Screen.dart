@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/sizes_strings.dart';
@@ -16,12 +15,10 @@ class ConnectedScreen extends StatelessWidget {
       body: Column(
         children: [
           GestureDetector(
-            onTap: () {
-              Get.toNamed('/signup');
-            },
+            onTap: () => context.goNamed("bottom_navbar"),
             child: Container(
               alignment: Alignment.topCenter,
-              margin: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+              margin: EdgeInsets.fromLTRB(0, 80, 0, 0),
               child: const Image(
                 alignment: Alignment.center,
                 image: AssetImage(mSuccessConnection),
@@ -33,16 +30,16 @@ class ConnectedScreen extends StatelessWidget {
           const Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0)),
           Container(
             alignment: Alignment.topCenter,
-            padding: const EdgeInsets.all(35),
+            padding: EdgeInsets.all(35),
             child: Column(
               children: const [
                 Text(
                   mConnected,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Color.fromARGB(230, 0, 0, 0)),
                 ),
                 Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0)),
               ],

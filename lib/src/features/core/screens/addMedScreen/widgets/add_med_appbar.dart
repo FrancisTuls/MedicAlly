@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 
-class AddMedAppBar extends StatelessWidget implements PreferredSizeWidget {
+class AddMedAppBar extends StatelessWidget with PreferredSizeWidget {
   const AddMedAppBar({
     super.key,
   });
@@ -21,9 +20,7 @@ class AddMedAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           icon: const Icon(Icons.today),
-          onPressed: () {
-            Get.toNamed('/addsched');
-          },
+          onPressed: () {},
         ),
       ],
     );

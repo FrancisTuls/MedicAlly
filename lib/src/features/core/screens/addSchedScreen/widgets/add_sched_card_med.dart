@@ -12,20 +12,11 @@ class AddSchedCard extends StatefulWidget {
 
 class _AddSchedCardState extends State<AddSchedCard> {
   final TextEditingController medController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<ListMedicineNames>(context, listen: false).fetchMedicineNames();
-  }
-
   MedLabel? selectedMed;
   int? selectedNumber;
 
   @override
   Widget build(BuildContext context) {
-    final numberProvider = Provider.of<SelectedDosage>(context);
-
     final List<DropdownMenuItem<MedLabel>> medEntries =
         MedLabel.values.map((MedLabel med) {
       return DropdownMenuItem<MedLabel>(
@@ -56,20 +47,16 @@ class _AddSchedCardState extends State<AddSchedCard> {
               ),
             ),
             const SizedBox(height: 20),
-            Consumer<ListMedicineNames>(builder: (context, medicine, child) {
-              return DropdownButtonFormField<String>(
+            Consumer<AddMedicineName>(builder: (context, medicine, child) {
+              return DropdownButtonFormField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   filled: false,
                   labelText: 'Select Medication',
                 ),
-                //Manual values
-                /*value: medicine.medicineNames.isNotEmpty
+                value: medicine.medicineNames.isNotEmpty
                     ? medicine.medicineNames.first
-                    : null,*/
-
-                //Database values
-                value: medicine.selectedMedicine,
+                    : null,
                 items: [
                   const DropdownMenuItem(
                     value: '',
@@ -84,30 +71,23 @@ class _AddSchedCardState extends State<AddSchedCard> {
                     },
                   ),
                 ],
-                onChanged: (value) {
-                  Provider.of<ListMedicineNames>(context, listen: false)
-                      .setSelectedMedicine(value);
-                  int selectedIndex =
-                      medicine.medicineNames.indexOf(value.toString());
-                  Provider.of<SelectedCircleProvider>(context, listen: false)
-                      .selectedCircle = selectedIndex + 1;
-                },
+                onChanged: (value) {},
               );
             }),
             const SizedBox(height: 20),
-            Consumer<SelectedDosage>(
-              builder: (context, dosage, _) => DropdownButtonFormField<int>(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  filled: false,
-                  labelText: 'Select Dosage',
-                ),
-                value: numberProvider.selectedNumber,
-                onChanged: (int? number) {
-                  numberProvider.selectedNumber = number;
-                },
-                items: numberEntries,
+            DropdownButtonFormField<int>(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                filled: false,
+                labelText: 'Select Dosage',
               ),
+              value: selectedNumber,
+              onChanged: (int? number) {
+                setState(() {
+                  selectedNumber = number;
+                });
+              },
+              items: numberEntries,
             ),
           ],
         ),

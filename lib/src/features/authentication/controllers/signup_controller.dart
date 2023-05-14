@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medic_ally/src/features/authentication/models/user_model.dart';
@@ -18,7 +16,7 @@ class SignUpController extends GetxController {
 
   final userRepo = Get.put(UserRepository());
 
-  Future<void> registerUser(String email, String password) async {
+  void registerUser(String email, String password) async {
     String? error = await AuthenticationRepository.instance
         .createUserWithEmailAndPassword(email, password);
     if (error != null) {
@@ -26,24 +24,8 @@ class SignUpController extends GetxController {
     }
   }
 
-  /*void createUser(UserModel user) async {
-    await userRepo.createUser(user);
-    phoneAuthentication(user.phoneNo);
-    Get.to(() => const OTPScreen());
-  }*/
-
   void createUser(UserModel user) async {
-    // Create the user in Firebase Authentication
-    await registerUser(user.email, user.password);
-
-    // Get the user ID from Firebase Authentication
-    final userId = FirebaseAuth.instance.currentUser!.uid;
-
-    // Create a new document in the "Users" collection in Cloud Firestore
-    final userDocRef =
-        FirebaseFirestore.instance.collection("Users").doc(userId);
-    await userDocRef.set(user.toJson());
-
+    await userRepo.createUser(user);
     phoneAuthentication(user.phoneNo);
     Get.to(() => const OTPScreen());
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 
-class AddSchedAppBar extends StatelessWidget implements PreferredSizeWidget {
+class AddSchedAppBar extends StatelessWidget with PreferredSizeWidget {
   const AddSchedAppBar({
     super.key,
   });
@@ -17,14 +17,14 @@ class AddSchedAppBar extends StatelessWidget implements PreferredSizeWidget {
         mAddSchedule,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
-      /*actions: [
+      actions: [
         TextButton(
             onPressed: () {},
             child: const Text(
               mDone,
               style: TextStyle(fontWeight: FontWeight.bold),
             )),
-      ],*/
+      ],
     );
   }
 }

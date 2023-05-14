@@ -107,7 +107,7 @@ class ProfileScreen extends StatelessWidget {
                       const SizedBox(height: 10),
 
                       //Menus
-                      /*ProfileMenuWidget(
+                      ProfileMenuWidget(
                           isDarkMode: isDarkMode,
                           icon: Icons.settings_outlined,
                           title: mMenu1,
@@ -123,7 +123,7 @@ class ProfileScreen extends StatelessWidget {
                           isDarkMode: isDarkMode,
                           icon: Icons.account_circle_outlined,
                           title: mMenu3,
-                          onPress: () {}),*/
+                          onPress: () {}),
                       ProfileMenuWidget(
                           isDarkMode: isDarkMode,
                           icon: Icons.logout_outlined,

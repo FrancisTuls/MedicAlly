@@ -17,10 +17,10 @@ const String mOtpScreen =
     "assets/images/forgot_pass_images/forgot_pass_otp.png";
 
 // -- Dashboard Images
-const String mPill = "assets/images/dashboard/dash-pill.png";
-const String mNoSchedule = "assets/images/dashboard/dash-nomed.png";
-const String mNoMedicine = "assets/images/dashboard/dash-empty-med.png";
-const String mNoMedicinealt = "assets/images/dashboard/dash-nomed.png";
+const String mUserProfile = "assets/images/dash-profile.png";
+const String mPill = "assets/images/dash-pill.png";
+const String mNoSchedule = "assets/images/dash-nomed.png";
+const String mNoMedicine = "assets/images/dash-empty-med.png";
 
 // --Setup Device Images
 const String mSetupDevice1 =
@@ -31,6 +31,10 @@ const String mSetupDeviceSearching =
     'assets/images/setup_device_images/searching_device_image.png';
 const String mSuccessConnection =
     'assets/images/setup_device_images/connected_image.png';
+
+const String mPill = "assets/images/dashboard/dash-pill.png";
+const String mNoSchedule = "assets/images/dashboard/dash-nomed.png";
+const String mNoMedicine = "assets/images/dashboard/dash-empty-med.png";
 
 // -- Profile Images
 const String mUserProfile = "assets/images/profile/profile_image.png";

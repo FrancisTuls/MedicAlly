@@ -1,16 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
-import 'package:medic_ally/src/features/core/controllers/medicine_reminder.dart';
-import 'package:medic_ally/src/features/core/models/med_details.dart';
-import 'package:medic_ally/src/features/core/models/med_reminder.dart';
 import 'package:medic_ally/src/features/core/screens/addMedScreen/widgets/add_med_appbar.dart';
 import 'package:medic_ally/src/features/core/screens/addMedScreen/widgets/add_med_card.dart';
 import 'package:medic_ally/src/features/core/screens/addMedScreen/widgets/add_med_card_dosage.dart';
 import 'package:medic_ally/src/features/core/screens/addSchedScreen/add_sched_screen.dart';
 import 'package:provider/provider.dart';
+
 import '../../../../../providers/add_medicine_provider.dart';
 
 class AddMedicine extends StatefulWidget {
@@ -21,9 +17,6 @@ class AddMedicine extends StatefulWidget {
 }
 
 class _AddMedicineState extends State<AddMedicine> {
-  final MedReminderController _medRemController =
-      Get.put(MedReminderController());
-
   int _selectedCircle = -1;
 
   final TextEditingController _medicineNameController = TextEditingController();
@@ -106,10 +99,11 @@ class _AddMedicineState extends State<AddMedicine> {
   }
 
   _validateMedicineName() {
+    var mediaQuery = MediaQuery.of(context);
+    var brightness = mediaQuery.platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
     if (_medicineNameController.text.isNotEmpty) {
-      _addMedDetailsToDB();
       final medicineName = _medicineNameController.text;
-
       Provider.of<AddMedicineName>(context, listen: false)
           .addMedicineName(medicineName);
       Get.toNamed('/addsched');
@@ -129,61 +123,7 @@ class _AddMedicineState extends State<AddMedicine> {
     }
   }
 
-  _addMedDetailsToDB() {
-    final CollectionReference medReminderCollection =
-        FirebaseFirestore.instance.collection('MedicineReminder');
-    final selectedContainer =
-        Provider.of<SelectedCircleProvider>(context, listen: false)
-            .selectedCircle;
-    final stock =
-        Provider.of<AddMedicineStock>(context, listen: false).selectedNumber;
-
-    final medReminder = MedReminder(
-      medName: _medicineNameController.text,
-      stock: stock!,
-      //container: selectedContainer,
-    );
-    medReminderCollection
-        .doc(selectedContainer.toString())
-        .set(medReminder.toJson());
-  }
-
   Widget _buildCircleAvatar(int index) {
-    return Consumer<SelectedCircleProvider>(
-      builder: (context, container, _) {
-        bool isSelected = container.selectedCircle == index;
-
-        return GestureDetector(
-          onTap: () {
-            container.selectedCircle = index;
-          },
-          child: CircleAvatar(
-            backgroundColor: index == 1
-                ? Colors.red
-                : index == 2
-                    ? Colors.orange
-                    : index == 3
-                        ? Colors.yellow
-                        : index == 4
-                            ? Colors.green
-                            : null,
-            child: isSelected
-                ? const Icon(Icons.check)
-                : Text(
-                    index.toString(),
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-  /*Widget _buildCircleAvatar(int index) {
-    final selectedCircleProvider = Provider.of<SelectedCircleProvider>(context);
-    bool saveSelected = selectedCircleProvider.selectedCircle == index;
     bool isSelected = _selectedCircle == index;
 
     return GestureDetector(
@@ -207,4 +147,4 @@ class _AddMedicineState extends State<AddMedicine> {
                 ),
         ));
   }
-}*/
+}
