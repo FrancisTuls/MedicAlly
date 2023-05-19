@@ -19,13 +19,13 @@ class MedicineStockCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       mMedicines,
                       style: TextStyle(
@@ -36,7 +36,7 @@ class MedicineStockCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const Text(
+              Text(
                 mInStock,
                 style: TextStyle(
                   fontSize: 20.0,

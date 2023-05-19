@@ -1,7 +1,6 @@
 /* -- App Image Strings -- */
 
 // -- Welcome Screen Images
-import 'package:flutter/material.dart';
 
 const String mWelcomeScreen = "assets/images/welcome_images/welcome_family.png";
 
@@ -34,3 +33,7 @@ const String mSuccessConnection =
 
 // -- Profile Images
 const String mUserProfile = "assets/images/profile/profile_image.png";
+
+// --App Icon
+const String mAppIcon =
+    "assets/images/splash_images/medicAlly_splash_logo_light.png";

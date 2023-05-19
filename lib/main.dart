@@ -28,9 +28,10 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-void main() {
+void main() async {
   //Get.put(AuthenticationRepository());
   WidgetsFlutterBinding.ensureInitialized();
+
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) => Get.put(AuthenticationRepository()));
   runApp(MultiProvider(
@@ -61,6 +62,8 @@ void main() {
 class App extends StatelessWidget {
   const App({super.key});
 
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -69,6 +72,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       title: "MedicAlly",
       debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
       home: const CircularProgressIndicator(
         value: null,
       ),

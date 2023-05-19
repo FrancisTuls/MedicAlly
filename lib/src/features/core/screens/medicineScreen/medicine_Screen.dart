@@ -14,9 +14,9 @@ class MedicineScreen extends StatelessWidget {
       body: SingleChildScrollView(
           child: Container(
         padding: const EdgeInsets.all(20),
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             MedicineStockCard(),
           ],
         ),

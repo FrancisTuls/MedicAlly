@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:medic_ally/providers/add_medicine_provider.dart';
+import 'package:medic_ally/services/notification_services.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/core/controllers/medicine_reminder.dart';
@@ -25,11 +26,14 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   late DateTime _selectedDate;
+  var notificationService;
 
   @override
   void initState() {
     super.initState();
     _resetSelectedDate();
+    notificationService = NotificationService();
+    notificationService.initNotification();
   }
 
   void _resetSelectedDate() {
@@ -44,11 +48,6 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    var brightness = mediaQuery.platformBrightness;
-
-    final isDarkMode = brightness == Brightness.dark;
-
     return ChangeNotifierProvider<DateProvider>(
       create: (context) =>
           DateProvider(), // Provide an instance of DateProvider
@@ -91,6 +90,21 @@ class _DashboardState extends State<Dashboard> {
                 endDateFormatted.isAfter(startDate);
           }).toList();
 
+          // Sort the filteredDocs list based on remTime
+          filteredDocs.sort((a, b) {
+            final remTimeA = a.get('remTime');
+            final remTimeB = b.get('remTime');
+
+            if (remTimeA == null || remTimeB == null) {
+              return 0;
+            }
+
+            final timeA = DateFormat('hh:mm a').parse(remTimeA);
+            final timeB = DateFormat('hh:mm a').parse(remTimeB);
+
+            return timeA.compareTo(timeB);
+          });
+
           if (filteredDocs.isNotEmpty) {
             return ListView.builder(
               shrinkWrap: true,
@@ -104,6 +118,16 @@ class _DashboardState extends State<Dashboard> {
                 final container = doc.get('id');
                 final startDate = doc.exists ? doc.get('startDate') : '';
                 final dosage = doc.exists ? doc.get('dosage').toString() : '';
+
+                DateTime time = DateFormat('h:mm a').parse(remTime);
+                var myTime = DateFormat("HH:mm").format(time);
+                notificationService.scheduledNotification(
+                  int.parse(myTime.toString().split(":")[0]),
+                  int.parse(myTime.toString().split(":")[1]),
+                  container,
+                  medName,
+                  dosage,
+                );
 
                 return AnimationConfiguration.staggeredList(
                   position: index,
@@ -294,20 +318,9 @@ class _DashboardState extends State<Dashboard> {
   }*/
 
   void deleteReminder(String docId) async {
-    final doc = await FirebaseFirestore.instance
-        .collection('Users')
-        .doc(FirebaseAuth.instance.currentUser?.uid)
+    await FirebaseFirestore.instance
         .collection('MedicineReminder')
         .doc(docId)
-        .get();
-
-    if (doc.exists) {
-      final remTime = doc.get('remTime');
-      final startDate = doc.get('startDate');
-
-      if (remTime != null || startDate != null) {
-        await doc.reference.update({'remTime': null, 'startDate': null});
-      }
-    }
+        .delete();
   }
 }

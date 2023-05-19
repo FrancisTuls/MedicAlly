@@ -74,7 +74,8 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
       setState(() {
         _reminderTime = selectedTime;
         String period = selectedTime.period == DayPeriod.am ? 'AM' : 'PM';
-        _time = '${selectedTime.hour}:${selectedTime.minute} $period';
+        String formattedMinute = selectedTime.minute.toString().padLeft(2, '0');
+        _time = '${selectedTime.hourOfPeriod}:$formattedMinute $period';
         selectedTimeProvider.selectedTime = _time.toString();
       });
     }

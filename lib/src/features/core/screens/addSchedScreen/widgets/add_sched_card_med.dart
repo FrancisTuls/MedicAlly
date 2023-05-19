@@ -34,8 +34,7 @@ class _AddSchedCardState extends State<AddSchedCard> {
       );
     }).toList();
 
-    final List<DropdownMenuItem<int>> numberEntries =
-        List.generate(25, (index) {
+    final List<DropdownMenuItem<int>> numberEntries = List.generate(5, (index) {
       return DropdownMenuItem<int>(
         value: index + 1,
         child: Text((index + 1).toString()),
