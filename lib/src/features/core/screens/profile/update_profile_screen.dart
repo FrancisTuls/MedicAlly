@@ -145,36 +145,6 @@ class UpdateProfileScreen extends StatelessWidget {
                                 child: const Text("Save"),
                               ),
                             ),
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text.rich(TextSpan(
-                                  text: mJoined,
-                                  style: TextStyle(fontSize: 12),
-                                  children: [
-                                    TextSpan(
-                                        text: mJoinedDate,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12))
-                                  ],
-                                )),
-                                FilledButton(
-                                    onPressed: () {},
-                                    style: FilledButton.styleFrom(
-                                        backgroundColor: isDarkMode
-                                            ? darkColorScheme.errorContainer
-                                            : lightColorScheme.errorContainer),
-                                    child: Text(
-                                      mDelete,
-                                      style: TextStyle(
-                                          color: isDarkMode
-                                              ? darkColorScheme.error
-                                              : lightColorScheme.error),
-                                    )),
-                              ],
-                            )
                           ],
                         ),
                       ),

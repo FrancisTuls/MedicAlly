@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
+import 'package:medic_ally/services/notification_services.dart';
 import 'package:medic_ally/src/constants/color_schemes.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
+
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  var notificationService;
+
+  @override
+  void initState() {
+    //TODO: implement initState
+    super.initState();
+    notificationService = NotificationService();
+    notificationService.initNotification();
+    notificationService.requestAndroidPermissions();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -13,7 +13,7 @@ class AddSchedCardTime extends StatefulWidget {
 class _AddSchedCardTimeState extends State<AddSchedCardTime> {
   String _selectedWhen = 'AM';
   String _selectedFreq = 'x times a day';
-  String _startHour = DateFormat("h:mm a").format(DateTime.now()).toString();
+  String _startHour = DateFormat("hh:mm a").format(DateTime.now()).toString();
 
   int _selectRemindEvery = 13;
 

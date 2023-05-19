@@ -1,6 +1,5 @@
 /* -- App Text Strings -- */
 // -- GET STARTED
-import 'package:flutter/material.dart';
 
 const String mGetStarted = "Get Started";
 const String mLogin = "Log In";

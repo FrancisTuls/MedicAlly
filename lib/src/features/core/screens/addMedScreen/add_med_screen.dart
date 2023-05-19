@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/core/controllers/medicine_reminder.dart';
 import 'package:medic_ally/src/features/core/models/med_details.dart';
@@ -142,6 +143,11 @@ class _AddMedicineState extends State<AddMedicine> {
       id: selectedContainer,
       medName: _medicineNameController.text,
       stock: stock!,
+      dosage: 0,
+      remTime: DateFormat("h:mm a").format(DateTime.now()).toString(),
+      startDate: DateFormat('MM/dd/yyyy').format(DateTime.now()).toString(),
+      endDate: DateFormat('MM/dd/yyyy').format(DateTime.now()).toString(),
+      isCompleted: 0,
     );
     medReminderCollection
         .doc(selectedContainer.toString())
