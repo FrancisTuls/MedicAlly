@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:medic_ally/src/features/core/screens/dashboardScreen/dashboard_screen.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/bottom_navbar.dart';
 import 'package:medic_ally/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:medic_ally/src/repository/authentication_repository/exceptions/login_email_password_failure.dart';
@@ -95,9 +94,12 @@ class AuthenticationRepository extends GetxController {
       String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      firebaseUser.value != null
+      if (firebaseUser.value != null) {
+        Get.offAll(() => const BottomNavbar());
+      }
+      /*firebaseUser.value != null
           ? Get.offAll(() => const BottomNavbar())
-          : Get.to(() => const WelcomeScreen());
+          : Get.to(() => const WelcomeScreen());*/
     } on FirebaseAuthException catch (e) {
       final ex = LoginWithEmailAndPasswordFailure.code(e.code);
       return ex.message;

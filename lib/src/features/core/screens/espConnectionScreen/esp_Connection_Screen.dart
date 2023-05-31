@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medic_ally/src/constants/sizes_strings.dart';
 import 'package:medic_ally/src/features/core/screens/espConnectionScreen/widgets/setup1_body_widget.dart';
 import 'package:medic_ally/src/features/core/screens/espConnectionScreen/widgets/setup1_footer_widget.dart';
 import 'package:medic_ally/src/features/core/screens/espConnectionScreen/widgets/setup1_header_widget.dart';
@@ -16,7 +15,7 @@ class EspConnection extends StatelessWidget {
             flex: 1,
             child: Container(
               alignment: Alignment.center,
-              child: Center(
+              child: const Center(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
               )),
@@ -32,7 +31,7 @@ class EspConnection extends StatelessWidget {
               )),
             )),
         Expanded(
-          flex: 2,
+          flex: 3,
           child: Container(
             padding: const EdgeInsets.all(35),
             child: Center(

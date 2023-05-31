@@ -1,16 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/core/controllers/medicine_reminder.dart';
-import 'package:medic_ally/src/features/core/models/med_details.dart';
 import 'package:medic_ally/src/features/core/models/med_reminder.dart';
 import 'package:medic_ally/src/features/core/screens/addMedScreen/widgets/add_med_appbar.dart';
 import 'package:medic_ally/src/features/core/screens/addMedScreen/widgets/add_med_card.dart';
 import 'package:medic_ally/src/features/core/screens/addMedScreen/widgets/add_med_card_dosage.dart';
-import 'package:medic_ally/src/features/core/screens/addSchedScreen/add_sched_screen.dart';
 import 'package:provider/provider.dart';
 import '../../../../../providers/add_medicine_provider.dart';
 
@@ -37,15 +34,15 @@ class _AddMedicineState extends State<AddMedicine> {
   int? selectedNumber;
 
   @override
-  Widget build(BuildContext context) {
-    final List<DropdownMenuItem<int>> numberEntries =
-        List.generate(25, (index) {
-      return DropdownMenuItem<int>(
-        value: index + 1,
-        child: Text((index + 1).toString()),
-      );
-    });
+  void initState() {
+    super.initState();
+    final medNameProvider =
+        Provider.of<AddMedicineName>(context, listen: false);
+    _medicineNameController.text = medNameProvider.medicineName ?? '';
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AddMedAppBar(),
       body: SingleChildScrollView(
@@ -55,7 +52,7 @@ class _AddMedicineState extends State<AddMedicine> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AddMedicineCard(
-                title: mMedication,
+                title: 'What is the name of the medicine?',
                 textFieldLabel: mMedicationName,
                 controllername: _medicineNameController,
               ),
@@ -69,7 +66,7 @@ class _AddMedicineState extends State<AddMedicine> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        mContainer,
+                        'What container you want to store it?',
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.w600,
@@ -90,7 +87,7 @@ class _AddMedicineState extends State<AddMedicine> {
                 ),
               ),
               const SizedBox(height: 20),
-              FilledButton.tonal(
+              FilledButton(
                 onPressed: () {
                   _validateMedicineName();
                 },
@@ -165,13 +162,13 @@ class _AddMedicineState extends State<AddMedicine> {
           },
           child: CircleAvatar(
             backgroundColor: index == 1
-                ? Colors.red
+                ? Colors.green
                 : index == 2
-                    ? Colors.orange
+                    ? Colors.red
                     : index == 3
-                        ? Colors.yellow
+                        ? Colors.orange
                         : index == 4
-                            ? Colors.green
+                            ? Colors.yellow
                             : null,
             child: isSelected
                 ? const Icon(Icons.check)
@@ -186,31 +183,3 @@ class _AddMedicineState extends State<AddMedicine> {
     );
   }
 }
-
-  /*Widget _buildCircleAvatar(int index) {
-    final selectedCircleProvider = Provider.of<SelectedCircleProvider>(context);
-    bool saveSelected = selectedCircleProvider.selectedCircle == index;
-    bool isSelected = _selectedCircle == index;
-
-    return GestureDetector(
-        onTap: () => _selectCircle(index),
-        child: CircleAvatar(
-          backgroundColor: index == 1
-              ? Colors.red
-              : index == 2
-                  ? Colors.blue
-                  : index == 3
-                      ? Colors.green
-                      : index == 4
-                          ? Colors.yellow
-                          : null,
-          child: isSelected
-              ? const Icon(Icons.check)
-              : Text(
-                  index.toString(),
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-        ));
-  }
-}*/

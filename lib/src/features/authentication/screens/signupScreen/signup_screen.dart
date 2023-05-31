@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/common_widgets/form/form_header_widget.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
@@ -24,26 +22,8 @@ class SignUpScreen extends StatelessWidget {
                 title: mSignupTitle,
                 subTitle: mSignupSubtitle),
             const SignUpFormWidget(),
-            //Google Sign Sign In Button
             Column(
               children: [
-                /*const Text(
-                  "or continue with",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                OutlinedButton.icon(
-                  onPressed: () {},
-                  icon: const FaIcon(FontAwesomeIcons.google),
-                  label: const Text(mSigninGoogle),
-                  style: OutlinedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(50)),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),*/
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

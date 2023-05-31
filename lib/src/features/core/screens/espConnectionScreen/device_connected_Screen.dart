@@ -1,8 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
-import 'package:medic_ally/src/constants/sizes_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/core/screens/espConnectionScreen/widgets/setup2_devicefound_footer.dart';
 import 'package:medic_ally/src/features/core/screens/espConnectionScreen/widgets/setup2_devicefound_form.dart';

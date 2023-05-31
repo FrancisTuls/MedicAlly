@@ -80,7 +80,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Get.toNamed('/signup');
+                        Get.toNamed('/esp_connection');
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 2,

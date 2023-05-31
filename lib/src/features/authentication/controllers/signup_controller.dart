@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medic_ally/src/constants/color_schemes.dart';
+import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/authentication/models/user_model.dart';
 import 'package:medic_ally/src/features/authentication/screens/forgotPassScreens/forgotPassOtp/otp_screen.dart';
 import 'package:medic_ally/src/repository/authentication_repository/authentication_repository.dart';
@@ -22,7 +24,7 @@ class SignUpController extends GetxController {
     String? error = await AuthenticationRepository.instance
         .createUserWithEmailAndPassword(email, password);
     if (error != null) {
-      Get.showSnackbar(GetSnackBar(message: error.toString()));
+      GetSnackBar(message: error.toString());
     }
   }
 
@@ -37,15 +39,46 @@ class SignUpController extends GetxController {
     await registerUser(user.email, user.password);
 
     // Get the user ID from Firebase Authentication
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+
+    if (userId != null) {
+      final userDocRef =
+          FirebaseFirestore.instance.collection("Users").doc(userId);
+      await userDocRef.set(user.toJson());
+
+      // Fetch the user details from Firestore
+      final userSnapshot = await userDocRef.get();
+
+      // Get the user's name and email
+      final fullName = userSnapshot['FullName'];
+
+      // Display a snackbar with the user's name
+
+      Get.snackbar(
+        mLoginTitle,
+        "Welcome, $user.fullName!",
+        colorText: Colors.black,
+        backgroundColor: lightColorScheme.tertiaryContainer,
+        icon: const Icon(Icons.waving_hand_rounded),
+      );
+    }
 
     // Create a new document in the "Users" collection in Cloud Firestore
-    final userDocRef =
+    /*final userDocRef =
         FirebaseFirestore.instance.collection("Users").doc(userId);
     await userDocRef.set(user.toJson());
 
-    phoneAuthentication(user.phoneNo);
-    Get.to(() => const OTPScreen());
+    FirebaseAuth.instance.authStateChanges().listen((User? firebaseUser) async {
+      if (firebaseUser != null) {
+        final userId = firebaseUser.uid;
+        final userDocRef =
+            FirebaseFirestore.instance.collection("Users").doc(userId);
+        await userDocRef.set(user.toJson());
+      }
+    });*/
+
+    //phoneAuthentication(user.phoneNo);
+    //Get.to(() => const OTPScreen());
   }
 
   void phoneAuthentication(String phoneNo) {

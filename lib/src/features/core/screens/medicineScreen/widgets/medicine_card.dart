@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/core/screens/medicineScreen/widgets/medicine_label_fields.dart';
 
@@ -9,10 +9,6 @@ class MedicineStockCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    var brightness = mediaQuery.platformBrightness;
-
-    final isDarkMode = brightness == Brightness.dark;
     return Card(
         child: Padding(
       padding: const EdgeInsets.all(20),
@@ -27,7 +23,7 @@ class MedicineStockCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      mMedicines,
+                      mName,
                       style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w600,
@@ -61,41 +57,56 @@ class MedicineStockCard extends StatelessWidget {
               }
 
               final data = snapshot.requireData;
-              //int medcount = data.docs.length + 1;
+              if (data.docs.isEmpty) {
+                return Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        mNoMedicinealt,
+                        height: 200,
+                        width: 200,
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'No Medicines Added Yet.',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                );
+              }
 
               return SingleChildScrollView(
-                //scrollDirection: Axis.vertical,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(),
-                  child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    height: 300,
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: data.docs.length,
-                      itemBuilder: (BuildContext context, int index) => Column(
-                        children: [
-                          MedicineLabelFields(
-                            medName: '${(data.docs[index]['medName'])}',
-                            medStock: '${(data.docs[index]['stock'])}',
-                          ),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: data.docs.length,
+                    itemBuilder: (BuildContext context, int index) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Container ${(data.docs[index]['id'])}',
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        MedicineLabelFields(
+                          medName: '${(data.docs[index]['medName'])}',
+                          medStock: '${(data.docs[index]['stock'])}',
+                        ),
+                        const SizedBox(height: 20),
+                      ],
                     ),
                   ),
                 ),
               );
             },
           ),
-          /*const MedicineLabelFields(medName: 'Medicine 1', medStock: '25'),
-          const SizedBox(height: 10),
-          const MedicineLabelFields(medName: 'Medicine 2', medStock: '25'),
-          const SizedBox(height: 10),
-          const MedicineLabelFields(medName: 'Medicine 3', medStock: '25'),
-          const SizedBox(height: 10),
-          const MedicineLabelFields(medName: 'Medicine 4', medStock: '25'),*/
         ],
       ),
     ));

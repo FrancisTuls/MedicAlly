@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:medic_ally/src/features/authentication/controllers/login_controller.dart';
-import '../../forgotPassScreens/forgotPassOptions/forgot_pass_modal.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({
     super.key,
   });
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class LoginForm extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
+            TextFormField(
               controller: loginController.email,
               decoration: const InputDecoration(
                 filled: true,
@@ -30,18 +35,31 @@ class LoginForm extends StatelessWidget {
                 labelText: mEmail,
                 hintText: mEnterEmail,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: 10),
-            TextField(
+            TextFormField(
               controller: loginController.password,
-              obscureText: true,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 filled: true,
-                prefixIcon: Icon(Icons.lock),
-                //suffixIcon: Icon(Icons.visibility),
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: IconButton(
+                    icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    }),
                 labelText: mPassword,
                 hintText: mEnterPassword,
               ),
+              obscureText: _isObscure,
             ),
             const SizedBox(height: 20),
             FilledButton(
@@ -57,23 +75,6 @@ class LoginForm extends StatelessWidget {
                   textStyle: const TextStyle(fontWeight: FontWeight.bold)),
               child: const Text(mLogin),
             ),
-            /*Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  mForgotPassword,
-                ),
-                TextButton(
-                  onPressed: () {
-                    ForgotPassModal.showModalForgotPass(context);
-                  },
-                  child: const Text(
-                    mReset,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            ),*/
           ],
         ),
       ),

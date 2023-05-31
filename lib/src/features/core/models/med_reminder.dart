@@ -7,6 +7,7 @@ class MedReminder {
   String? startDate;
   String? endDate;
   String? remTime;
+  Map<String, int>? medicationStatus;
   //int? container;
 
   MedReminder({
@@ -18,6 +19,7 @@ class MedReminder {
     this.startDate,
     this.endDate,
     this.remTime,
+    this.medicationStatus,
     /*this.container*/
   });
 
@@ -30,6 +32,10 @@ class MedReminder {
     startDate = json["startDate"];
     endDate = json["endDate"];
     remTime = json["remTime"];
+    medicationStatus = json["medicationStatus"] != null
+        ? Map<String, int>.from(json["medicationStatus"])
+        : null;
+
     //container = json["container"];
   }
 
@@ -42,6 +48,7 @@ class MedReminder {
     data['startDate'] = startDate;
     data['endDate'] = endDate;
     data['remTime'] = remTime;
+    data['medicationStatus'] = medicationStatus;
     //data['container'] = container;
     data['stock'] = stock;
     return data;

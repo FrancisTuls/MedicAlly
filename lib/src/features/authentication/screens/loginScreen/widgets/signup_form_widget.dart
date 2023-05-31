@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medic_ally/src/features/authentication/controllers/signup_controller.dart';
 import 'package:medic_ally/src/features/authentication/models/user_model.dart';
-import 'package:medic_ally/src/features/authentication/screens/forgotPassScreens/forgotPassOtp/otp_screen.dart';
 import 'package:medic_ally/src/repository/authentication_repository/authentication_repository.dart';
 import '../../../../../constants/text_strings.dart';
 
-class SignUpFormWidget extends StatelessWidget {
+class SignUpFormWidget extends StatefulWidget {
   const SignUpFormWidget({
     super.key,
   });
+
+  @override
+  State<SignUpFormWidget> createState() => _SignUpFormWidgetState();
+}
+
+class _SignUpFormWidgetState extends State<SignUpFormWidget> {
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,7 @@ class SignUpFormWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
+            TextFormField(
               controller: controller.fullName,
               decoration: const InputDecoration(
                 filled: true,
@@ -32,11 +38,17 @@ class SignUpFormWidget extends StatelessWidget {
                 labelText: mFullName,
                 hintText: mEnterFullName,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your name';
+                }
+                return null;
+              },
             ),
             const SizedBox(
               height: 10,
             ),
-            TextField(
+            TextFormField(
               controller: controller.email,
               decoration: const InputDecoration(
                 filled: true,
@@ -44,11 +56,17 @@ class SignUpFormWidget extends StatelessWidget {
                 labelText: mEmail,
                 hintText: mEnterEmail,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                }
+                return null;
+              },
             ),
             const SizedBox(
               height: 10,
             ),
-            TextField(
+            TextFormField(
               controller: controller.phoneNo,
               decoration: const InputDecoration(
                 filled: true,
@@ -56,19 +74,39 @@ class SignUpFormWidget extends StatelessWidget {
                 labelText: mPhone,
                 hintText: mEnterPhone,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your phone number';
+                }
+                return null;
+              },
             ),
             const SizedBox(
               height: 10,
             ),
-            TextField(
+            TextFormField(
               controller: controller.password,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 filled: true,
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: IconButton(
+                    icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _isObscure = !_isObscure;
+                      });
+                    }),
                 labelText: mPassword,
                 hintText: mEnterPassword,
               ),
-              obscureText: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your password';
+                }
+                return null;
+              },
+              obscureText: _isObscure,
             ),
             const SizedBox(
               height: 20,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:medic_ally/providers/add_medicine_provider.dart';
-import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:provider/provider.dart';
 
 class AddMedicineCardStock extends StatefulWidget {
@@ -16,7 +15,7 @@ class _AddMedicineCardStockState extends State<AddMedicineCardStock> {
   @override
   Widget build(BuildContext context) {
     final List<DropdownMenuItem<int>> numberEntries =
-        List.generate(25, (index) {
+        List.generate(20, (index) {
       return DropdownMenuItem<int>(
         value: index + 1,
         child: Text((index + 1).toString()),
@@ -30,7 +29,7 @@ class _AddMedicineCardStockState extends State<AddMedicineCardStock> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              mStock,
+              'How many medicines you want to store?',
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w600,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../../constants/text_strings.dart';
 import 'forgot_pass_button_widget.dart';
 

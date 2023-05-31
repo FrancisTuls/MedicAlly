@@ -2,12 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AddMedicineName extends ChangeNotifier {
-  List<String> _medicineNames = [];
+  String? _medicineName;
 
-  List<String> get medicineNames => _medicineNames;
+  String? get medicineName => _medicineName;
 
-  void addMedicineName(String medicineName) {
-    _medicineNames.add(medicineName);
+  void addMedicineName(String? medicineName) {
+    _medicineName = medicineName;
+    notifyListeners();
+  }
+
+  void clearMedicineName() {
+    _medicineName = null;
     notifyListeners();
   }
 }
@@ -53,6 +58,16 @@ class AddMedicineStock extends ChangeNotifier {
     _selectedNumber = value;
     notifyListeners();
   }
+
+  void addSelectedStock(int value) {
+    _selectedNumber = value;
+    notifyListeners();
+  }
+
+  void clearStock() {
+    _selectedNumber = null;
+    notifyListeners();
+  }
 }
 
 class SelectedCircleProvider with ChangeNotifier {
@@ -62,6 +77,16 @@ class SelectedCircleProvider with ChangeNotifier {
 
   set selectedCircle(int selectedCircle) {
     _selectedCircle = selectedCircle;
+    notifyListeners();
+  }
+
+  void addSelectedCircle(int selectedCircle) {
+    _selectedCircle = selectedCircle;
+    notifyListeners();
+  }
+
+  void clearContainer() {
+    _selectedCircle = 0;
     notifyListeners();
   }
 }

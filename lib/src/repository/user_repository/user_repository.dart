@@ -17,22 +17,21 @@ class UserRepository extends GetxController {
           () => Get.snackbar("Success", "Your account has been created.",
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.green.withOpacity(0.1),
-              colorText: Colors.green),
+              colorText: Colors.black),
         )
         .catchError((error, stackTrace) {
       Get.snackbar("Error", "Something went wrong. Please try again.",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.redAccent.withOpacity(0.1),
-          colorText: Colors.red);
-      print(error.toString());
+          colorText: Colors.black);
+      debugPrint(error.toString());
     });
   }
 
   //Fetching user detail
-  Future<UserModel> getUserDetails(String email) async {
-    final snapshot =
-        await _db.collection("Users").where("Email", isEqualTo: email).get();
-    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+  Future<UserModel> getUserDetails(String uid) async {
+    final snapshot = await _db.collection("Users").doc(uid).get();
+    final userData = UserModel.fromSnapshot(snapshot);
     return userData;
   }
 
