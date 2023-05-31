@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -7,7 +6,6 @@ import 'package:medic_ally/providers/add_medicine_provider.dart';
 import 'package:medic_ally/services/notification_services.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
-import 'package:medic_ally/src/features/core/controllers/medicine_reminder.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/add_med_floating_button.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/home_dash_addmedbar_widget.dart';
 import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/home_dash_appbar_widget.dart';
@@ -118,16 +116,17 @@ class _DashboardState extends State<Dashboard> {
                 final container = doc.get('id');
                 final startDate = doc.exists ? doc.get('startDate') : '';
                 final dosage = doc.exists ? doc.get('dosage').toString() : '';
+                final stock = doc.exists ? doc.get('stock') : 0;
 
                 DateTime time = DateFormat('h:mm a').parse(remTime);
                 var myTime = DateFormat("HH:mm").format(time);
                 notificationService.scheduledNotification(
-                  int.parse(myTime.toString().split(":")[0]),
-                  int.parse(myTime.toString().split(":")[1]),
-                  container,
-                  medName,
-                  dosage,
-                );
+                    int.parse(myTime.toString().split(":")[0]),
+                    int.parse(myTime.toString().split(":")[1]),
+                    container,
+                    medName,
+                    dosage,
+                    stock);
 
                 return AnimationConfiguration.staggeredList(
                   position: index,
@@ -137,14 +136,16 @@ class _DashboardState extends State<Dashboard> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              _showBottomSheet(context, doc.id);
+                              _showBottomSheet(
+                                  context, doc.id, medName, container, stock);
                             },
                             child: MedTile(
                               medName: medName,
                               remTime: remTime,
                               completed: completed,
                               container: container,
-                              date: startDate,
+                              date:
+                                  DateFormat('M/dd/yyyy').format(selectedDate),
                               dosage: dosage,
                             ),
                           ),
@@ -180,7 +181,8 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  void _showBottomSheet(BuildContext context, String docId) {
+  void _showBottomSheet(BuildContext context, String docId, String medName,
+      int container, int stock) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -199,6 +201,12 @@ class _DashboardState extends State<Dashboard> {
               const SizedBox(height: 10),
               FilledButton(
                 onPressed: () {
+                  Provider.of<AddMedicineName>(context, listen: false)
+                      .addMedicineName(medName);
+                  Provider.of<SelectedCircleProvider>(context, listen: false)
+                      .addSelectedCircle(container);
+                  Provider.of<AddMedicineStock>(context, listen: false)
+                      .addSelectedStock(stock);
                   Get.toNamed('/addmed');
                 },
                 style: FilledButton.styleFrom(
@@ -245,77 +253,6 @@ class _DashboardState extends State<Dashboard> {
       },
     );
   }
-
-  /*_showMedSched() {
-    return Expanded(
-      child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('Users')
-            .doc(FirebaseAuth.instance.currentUser?.uid)
-            .collection('MedicineReminder')
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
-            final docs = snapshot.data!.docs;
-            if (docs.isNotEmpty) {
-              return ListView.separated(
-                shrinkWrap: true,
-                itemCount: docs.length,
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 10),
-                itemBuilder: (context, index) {
-                  final doc = docs[index];
-                  final medName = doc.exists ? doc.get('medName') : '';
-                  final remTime = doc.exists ? doc.get('remTime') : '';
-                  final completed =
-                      doc.exists ? doc.get('isCompleted').toString() : '';
-                  final container =
-                      doc.exists ? doc.get('container').toString() : '';
-                  final startDate = doc.exists ? doc.get('startDate') : '';
-                  final dosage = doc.exists ? doc.get('dosage').toString() : '';
-
-                  if (remTime == null || remTime.isEmpty) {
-                    return Container();
-                  } else {
-                    return AnimationConfiguration.staggeredList(
-                        position: index,
-                        child: SlideAnimation(
-                          child: FadeInAnimation(
-                              child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  deleteReminder(doc.id);
-                                },
-                                child: MedTile(
-                                  medName: medName,
-                                  remTime: remTime,
-                                  completed: completed,
-                                  container: int.parse(container),
-                                  date: startDate,
-                                  dosage: dosage,
-                                ),
-                              )
-                            ],
-                          )),
-                        ));
-                  }
-                },
-              );
-            } else {
-              return const Center(
-                  child: Text(
-                'No Medicines Added Yet.',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ));
-            }
-          } else {
-            return const Text('Loading...');
-          }
-        },
-      ),
-    );
-  }*/
 
   void deleteReminder(String docId) async {
     await FirebaseFirestore.instance

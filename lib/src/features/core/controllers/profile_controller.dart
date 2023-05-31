@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medic_ally/src/features/authentication/models/user_model.dart';
 import 'package:medic_ally/src/repository/authentication_repository/authentication_repository.dart';
@@ -12,9 +11,9 @@ class ProfileController extends GetxController {
 
   //One user data
   getUserData() {
-    final email = _authRepo.firebaseUser.value?.email;
-    if (email != null) {
-      return _userRepo.getUserDetails(email);
+    final uid = _authRepo.firebaseUser.value?.uid;
+    if (uid != null) {
+      return _userRepo.getUserDetails(uid);
     } else {
       Get.snackbar("Error", "Login to continue.");
     }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medic_ally/src/constants/text_strings.dart';
 
 class AddMedicineCard extends StatelessWidget {
   final String title;

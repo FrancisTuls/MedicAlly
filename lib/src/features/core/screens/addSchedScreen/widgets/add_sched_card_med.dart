@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:medic_ally/providers/add_medicine_provider.dart';
-import 'package:medic_ally/src/constants/text_strings.dart';
 import 'package:provider/provider.dart';
 
 class AddSchedCard extends StatefulWidget {
@@ -19,20 +18,11 @@ class _AddSchedCardState extends State<AddSchedCard> {
     Provider.of<ListMedicineNames>(context, listen: false).fetchMedicineNames();
   }
 
-  MedLabel? selectedMed;
   int? selectedNumber;
 
   @override
   Widget build(BuildContext context) {
     final numberProvider = Provider.of<SelectedDosage>(context);
-
-    final List<DropdownMenuItem<MedLabel>> medEntries =
-        MedLabel.values.map((MedLabel med) {
-      return DropdownMenuItem<MedLabel>(
-        value: med,
-        child: Text(med.med),
-      );
-    }).toList();
 
     final List<DropdownMenuItem<int>> numberEntries = List.generate(5, (index) {
       return DropdownMenuItem<int>(
@@ -48,7 +38,7 @@ class _AddSchedCardState extends State<AddSchedCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              mMedication,
+              'How many medicines you want to take?',
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w600,
@@ -72,7 +62,7 @@ class _AddSchedCardState extends State<AddSchedCard> {
                 items: [
                   const DropdownMenuItem(
                     value: '',
-                    child: Text('Select a medicine'),
+                    child: Text('Select a Medicine'),
                   ),
                   ...medicine.medicineNames.map(
                     (medicineName) {
@@ -112,24 +102,5 @@ class _AddSchedCardState extends State<AddSchedCard> {
         ),
       ),
     );
-  }
-}
-
-enum MedLabel { paracetamol, opthamax, neozep, advil, fernC }
-
-extension MedLabelExtension on MedLabel {
-  String get med {
-    switch (this) {
-      case MedLabel.paracetamol:
-        return 'Paracetamol';
-      case MedLabel.opthamax:
-        return 'Opthamax';
-      case MedLabel.neozep:
-        return 'Neozep';
-      case MedLabel.advil:
-        return 'Advil';
-      case MedLabel.fernC:
-        return 'Fern C';
-    }
   }
 }

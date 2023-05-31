@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medic_ally/services/notification_services.dart';
 import 'package:medic_ally/src/constants/color_schemes.dart';
 import 'package:medic_ally/src/constants/image_strings.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
@@ -55,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
                                   },
                                 )),
                           ),
-                          Positioned(
+                          /*Positioned(
                             bottom: 0,
                             right: 0,
                             child: Container(
@@ -75,7 +76,7 @@ class ProfileScreen extends StatelessWidget {
                                 size: 20,
                               ),
                             ),
-                          )
+                          )*/
                         ],
                       ),
                       const SizedBox(height: 10),

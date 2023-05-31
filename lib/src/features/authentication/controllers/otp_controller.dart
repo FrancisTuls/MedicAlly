@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:medic_ally/src/features/core/screens/dashboardScreen/dashboard_screen.dart';
+import 'package:medic_ally/src/features/core/screens/dashboardScreen/widgets/bottom_navbar.dart';
 import 'package:medic_ally/src/repository/authentication_repository/authentication_repository.dart';
 
 class OTPController extends GetxController {
@@ -7,6 +7,6 @@ class OTPController extends GetxController {
 
   void verifyOTP(String otp) async {
     var isVerified = await AuthenticationRepository.instance.verifyOTP(otp);
-    isVerified ? Get.offAll(const Dashboard()) : Get.back();
+    isVerified ? Get.offAll(const BottomNavbar()) : Get.back();
   }
 }

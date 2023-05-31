@@ -1,6 +1,7 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:medic_ally/providers/add_medicine_provider.dart';
+import 'package:medic_ally/src/constants/color_schemes.dart';
 import 'package:provider/provider.dart';
 
 class CalendarContainer extends StatefulWidget {
@@ -30,7 +31,13 @@ class _CalendarContainerState extends State<CalendarContainer> {
     final isDarkMode = brightness == Brightness.dark;
 
     return Container(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+      padding: const EdgeInsets.only(top: 10, bottom: 20, right: 20),
+      decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          color: isDarkMode
+              ? lightColorScheme.inverseSurface
+              : const Color(0xFFEAF0FA)),
       child: CalendarTimeline(
         showYears: false,
         initialDate: _selectedDate,
@@ -40,14 +47,12 @@ class _CalendarContainerState extends State<CalendarContainer> {
             context.read<DateProvider>().setSelectedDate(date),
         leftMargin: 20,
         monthColor: isDarkMode ? Colors.white : Colors.black,
-        dayColor: isDarkMode
-            ? const Color.fromRGBO(2, 157, 165, 1)
-            : const Color.fromRGBO(137, 221, 226, 1),
-        dayNameColor: Colors.white,
-        activeDayColor: Colors.white,
+        dayColor: isDarkMode ? const Color(0xFF006875) : Color(0xFF004F58),
+        dayNameColor: isDarkMode ? Colors.black : Colors.white,
+        activeDayColor: isDarkMode ? Colors.black : Colors.white,
         activeBackgroundDayColor:
-            isDarkMode ? const Color(0xFF003063) : const Color(0xFF005DB6),
-        dotsColor: const Color(0xFFF1F0F4),
+            isDarkMode ? darkColorScheme.primary : lightColorScheme.primary,
+        dotsColor: isDarkMode ? Colors.black : Colors.white,
         locale: 'en',
       ),
     );

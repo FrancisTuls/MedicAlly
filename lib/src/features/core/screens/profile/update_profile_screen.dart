@@ -53,7 +53,7 @@ class UpdateProfileScreen extends StatelessWidget {
                                 child: const Image(
                                     image: AssetImage(mUserProfile))),
                           ),
-                          Positioned(
+                          /*Positioned(
                             bottom: 0,
                             right: 0,
                             child: Container(
@@ -73,7 +73,7 @@ class UpdateProfileScreen extends StatelessWidget {
                                 size: 20,
                               ),
                             ),
-                          )
+                          )*/
                         ],
                       ),
                       const SizedBox(height: 50),

@@ -126,3 +126,8 @@ const String mConnectWifi = 'Turn on Wifi';
 const String mMedicines = 'Medicines';
 const String mMedicineName = 'Medicine Name';
 const String mInStock = 'In Stock';
+const String mName = 'Name';
+
+// -- Notification Screen
+const String mReminder = 'Reminder';
+const String mTake = 'Take';

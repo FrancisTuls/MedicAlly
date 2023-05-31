@@ -1,11 +1,7 @@
-import 'dart:ui';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
-import 'package:medic_ally/src/constants/image_strings.dart';
 
 class SetupDeviceFooter extends StatefulWidget {
   const SetupDeviceFooter({
@@ -52,7 +48,7 @@ class _SetupDeviceFooterState extends State<SetupDeviceFooter> {
         GestureDetector(
           onTap: _isWifiEnabled
               ? () {
-                  Get.toNamed('/searching_screen');
+                  Get.toNamed('/signup');
                 }
               : null,
           child: Container(

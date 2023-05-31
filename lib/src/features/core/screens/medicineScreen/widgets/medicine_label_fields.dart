@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medic_ally/src/constants/color_schemes.dart';
 
 class MedicineLabelFields extends StatelessWidget {
   const MedicineLabelFields(
@@ -25,14 +26,16 @@ class MedicineLabelFields extends StatelessWidget {
               width: 180,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: isDarkMode ? Colors.blueGrey : Colors.white,
+                color: isDarkMode
+                    ? darkColorScheme.primaryContainer
+                    : lightColorScheme.primaryContainer,
               ),
               child: Row(
                 children: [
                   Text(
                     medName,
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.normal),
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -43,7 +46,9 @@ class MedicineLabelFields extends StatelessWidget {
               width: 80,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: isDarkMode ? Colors.blueGrey : Colors.white,
+                color: isDarkMode
+                    ? darkColorScheme.primaryContainer
+                    : lightColorScheme.primaryContainer,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

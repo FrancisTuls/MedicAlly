@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medic_ally/src/constants/color_schemes.dart';
 import 'package:medic_ally/src/constants/text_strings.dart';
 
@@ -28,47 +29,52 @@ class MedTile extends StatelessWidget {
     final isDarkMode = brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 20),
       child: Container(
         padding: const EdgeInsets.all(16),
-        //  width: SizeConfig.screenWidth * 0.78,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: isDarkMode
-                ? darkColorScheme.primaryContainer
-                : lightColorScheme.primaryContainer,
-            border: Border.all(color: _getBGClr(container), width: 3)),
+          borderRadius: BorderRadius.circular(45),
+          color: isDarkMode
+              ? darkColorScheme.primaryContainer
+              : lightColorScheme.primaryContainer,
+        ),
         child: Row(children: [
-          Column(
-            children: [
-              Text(
-                mContainer,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: isDarkMode ? Colors.white : Colors.black,
-                    fontSize: 10),
-              ),
-              RotatedBox(
-                quarterTurns: 4,
-                child: Text(
-                  "$container",
+          Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color:
+                  _getBGClr(container), // Choose your desired background color
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  mContainer,
                   style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 10,
+                  ),
+                ),
+                RotatedBox(
+                  quarterTurns: 4,
+                  child: Text(
+                    "$container",
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: isDarkMode ? Colors.white : Colors.black),
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5),
-            height: 60,
-            width: 0.5,
-            color: isDarkMode ? Colors.white : Colors.black,
-          ),
-          const SizedBox(width: 5),
+          const SizedBox(width: 15),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,7 +127,7 @@ class MedTile extends StatelessWidget {
           RotatedBox(
             quarterTurns: 3,
             child: Text(
-              completed == '1' ? "TAKEN" : "",
+              completed == '1' && date == getCurrentDate() ? "TAKEN" : "",
               style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
@@ -138,13 +144,20 @@ class MedTile extends StatelessWidget {
       case 1:
         return Colors.green;
       case 2:
-        return Colors.yellow;
+        return Colors.red;
       case 3:
         return Colors.orange;
       case 4:
-        return Colors.red;
+        return Colors.yellow;
       default:
-        return Color.fromARGB(255, 3, 64, 113);
+        return const Color.fromARGB(255, 3, 64, 113);
     }
+  }
+
+  String getCurrentDate() {
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('M/dd/yyyy');
+    debugPrint(formatter.format(now));
+    return formatter.format(now);
   }
 }

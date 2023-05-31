@@ -81,151 +81,72 @@ class _AddSchedCardSchedState extends State<AddSchedCardSched> {
     }
   }
 
-  /*List<DateTime> _selectedDates = [];
-
-  Future<void> _selectDays(BuildContext context) async {
-    final List<bool>? result = await showModalBottomSheet<List<bool>>(
-      context: context,
-      builder: (BuildContext context) {
-        return DaysOfWeekModal(daysSelected: _daysSelected);
-      },
-    );
-    if (result != null) {
-      setState(() {
-        _daysSelected = result;
-        if (_isSpecificDays) {
-          _selectedDates = _getSelectedDates();
-        }
-      });
-    }
-  }*/
-
-  /*List<DateTime> _getSelectedDates() {
-    final List<DateTime> selectedDates = [];
-    final DateTime startDate = DateFormat('MM/dd/yyyy').parse(_startDate);
-    final int startWeekday = startDate.weekday;
-    for (int i = 0; i < 7; i++) {
-      if (_daysSelected[i]) {
-        final DateTime date = startDate.add(Duration(days: i - startWeekday));
-        selectedDates.add(date);
-      }
-    }
-    return selectedDates;
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Card(
         child: Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
-            mSchedule,
+            'When are you going to take the medicine?',
             style: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 20),
-          Row(
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 'Time: ',
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
-              const SizedBox(width: 10),
-              OutlinedButton(
+              OutlinedButton.icon(
                 onPressed: () => _selectTime(context),
-                child: Text(_reminderTime.format(context)),
+                label: Text(_reminderTime.format(context)),
+                icon: const Icon(Icons.schedule, size: 20),
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
+          const Divider(),
+          const SizedBox(height: 10),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                mStartDate,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(width: 10),
-              OutlinedButton(
-                onPressed: () => _selectDate(context),
-                child: Text(_startDate),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              const Text(
-                mEndDate,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(width: 10),
-              OutlinedButton(
-                onPressed: () => _selectEndDate(context),
-                child: Text(_endDate),
-              ),
-            ],
-          ),
-
-          /*const SizedBox(height: 20),
-          const Text(
-            mDays,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Column(
-            children: [
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Radio(
-                    value: false,
-                    groupValue: _isSpecificDays,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _isSpecificDays = value!;
-                      });
-                    },
+                  const Text(
+                    mStartDate,
+                    style: TextStyle(fontWeight: FontWeight.w600),
                   ),
-                  const Text(mEveryDay),
+                  OutlinedButton.icon(
+                    onPressed: () => _selectDate(context),
+                    label: Text(_startDate),
+                    icon: const Icon(Icons.today, size: 20),
+                  ),
                 ],
               ),
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Radio(
-                    value: true,
-                    groupValue: _isSpecificDays,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        _isSpecificDays = value!;
-                        if (_isSpecificDays) {
-                          _selectDays(context);
-                        }
-                      });
-                    },
+                  const Text(
+                    mEndDate,
+                    style: TextStyle(fontWeight: FontWeight.w600),
                   ),
-                  const Text(mSpecificDay),
+                  OutlinedButton.icon(
+                    onPressed: () => _selectEndDate(context),
+                    label: Text(_endDate),
+                    icon: const Icon(Icons.event, size: 20),
+                  ),
                 ],
               ),
-              if (_isSpecificDays && _selectedDates.isNotEmpty)
-                const SizedBox(height: 10),
-              Visibility(
-                visible: _isSpecificDays && _selectedDates.isNotEmpty,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _selectedDates.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final DateFormat formatter = DateFormat('EEE');
-                    return Text(formatter.format(_selectedDates[index]));
-                  },
-                ),
-              ),
             ],
-          ),*/
+          )
         ],
       ),
     ));

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:medic_ally/src/constants/text_strings.dart';
 
 class DashAddmed extends StatelessWidget {
   const DashAddmed({
@@ -11,23 +9,22 @@ class DashAddmed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 30, right: 30, top: 10),
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                DateFormat.yMMMMd().format(DateTime.now()),
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(width: 100),
-              Text(DateFormat('EEEE').format(DateTime.now()),
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w600)),
-            ],
+          Flexible(
+            child: Text(
+              DateFormat.yMMMMd().format(DateTime.now()),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+          ),
+          Flexible(
+            child: Text(
+              DateFormat('EEEE').format(DateTime.now()),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),
